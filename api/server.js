@@ -1,16 +1,15 @@
 const express = require('express')
-const http = require('http')
 const app = express()
-const server = http.createServer(app)
+const path = require("path");
+
+app.set('view engine', 'ejs')
+
+app.set("views", path.join(__dirname, "views"));
 
 
-// app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
-  res.send("Hi")
+  res.render('index')
 })
 
-server.listen(5000)
-server.on("listening", () => {
-  console.log("Listening on Port 5000")
-});
+module.exports = app
