@@ -1,12 +1,4 @@
 
-class socketConnection {
-  constructor(io) {
-    this.io = io
-  }
-
-
-
-}
 
 function chat(io) {
   io.on('connection', (socket) => {

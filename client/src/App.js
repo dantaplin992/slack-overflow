@@ -1,7 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
+import io from 'socket.io-client'
 
 function App() {
+  const socket = io(`http://${window.location.hostname}:5000`)
+  socket.on('handshake', "hello from React")
   return (
     <div className="App">
       <header className="App-header">
