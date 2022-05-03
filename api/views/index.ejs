@@ -1,31 +1,6 @@
 <head>
   <script src="https://cdn.socket.io/3.0.5/socket.io.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      console.log('Feed loaded')
-      const socket = io()
-      const messagesList = document.querySelector('#messages')
-
-      socket.on('handshake', (msg) => {
-        console.log(msg)
-      })
-
-      socket.on('displayMessage', (newMsg) => {
-        console.log(newMsg)
-        const newListItem = document.createElement('li')
-        newListItem.innerText = newMsg
-        messagesList.appendChild(newListItem)
-      })
-
-      const sendButton = document.querySelector('#messageButton')
-      const textInput = document.querySelector('#textInput')
-      sendButton.addEventListener('click', () => {
-        const fullMessage = textInput.value
-        socket.emit('buttonPress', fullMessage)
-      })
-
-    })
-  </script>
+  <script src="../public/scripts.index.js"></script>
 </head>
 <body>
   Hi again
