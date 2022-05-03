@@ -2,7 +2,7 @@
 
 function chat(io) {
   io.on('connection', (socket) => {
-  console.log("socket connected")
+  console.log(`socket connected with id ${socket.id}`)
   socket.emit('handshake', 'hello client')
 
   socket.on('buttonPress', (msg) => {
