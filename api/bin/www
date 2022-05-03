@@ -1,0 +1,15 @@
+const app = require('../server.js')
+const http = require('http')
+const server = http.createServer(app)
+
+const io = require('socket.io')(server, { cors: { origin: "*" }})
+
+server.listen(5000)
+server.on("listening", () => {
+  console.log("Listening on Port 5000")
+});
+
+io.on('connection', (socket) => {
+  console.log("socket connected")
+  socket.emit('handshake', 'hello client')
+})

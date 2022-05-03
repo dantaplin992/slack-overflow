@@ -1,0 +1,16 @@
+<head>
+  <script src="https://cdn.socket.io/3.0.5/socket.io.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Feed loaded')
+      const socket = io()
+
+      socket.on('handshake', (msg) => {
+        console.log(msg)
+      })
+    })
+  </script>
+</head>
+<body>
+  Hi again
+</body>
