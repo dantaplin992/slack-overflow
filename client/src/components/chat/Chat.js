@@ -1,6 +1,8 @@
-import React from 'react';
+import React from 'react'
 import io from 'socket.io-client'
-import Feed from './Feed'
+import Feed from './feed/Feed'
+import Banner from './Banner'
+import Rooms from './Rooms'
 
 class Chat extends React.Component {
 
@@ -15,7 +17,11 @@ class Chat extends React.Component {
   render = () => {
     this.socketConnect()
     return (
-      <Feed />
+      <div className='Chat'>
+        <Banner />
+        <Rooms />
+        <Feed />
+      </div>
     )
   }
 }
