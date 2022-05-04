@@ -1,7 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
+import io from 'socket.io-client'
+
+const socket = io("localhost:5000");
+
+socket.on('handshake', (msg) => {
+  console.log(msg)
+})
 
 function App() {
+  
   return (
     <div className="App">
       <header className="App-header">
