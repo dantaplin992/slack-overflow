@@ -1,27 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function Login() {
+const initialValues = {
+  username: '',
+  password: ''
+}
 
-  const loginButton = document.getElementById('login-button');
-  loginButton.addEventListener('click', (e) => {
-    e.preventDefault()
-    console.log('login button clicked')
+export default function LoginForm() {
+  const [values, setValues] = useState(initialValues);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+
+    setValues({
+      ...values,
+      [name]: value,
+    })
   }
-  )
-  
-  return(
-    <div className='Login'>
-      <form>
-        <input type='text' name="username" placeholder='username' />
-        <input type='password' name="password" placeholder='password' />
-        <button id="login-button" type='button'>Login</button>
-      </form>
-      <div>
-        <p>Don't have an account?</p>
-        <button>Sign Up</button>
-      </div>
-    </div>
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('username :', values.username)
+    console.log('password :', values.password)
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+      type="text"
+      name="username"
+      placeholder="username"
+      value={values.username}
+      onChange={handleInputChange} />
+      <input
+        type="text"
+        name="password"
+        placeholder="password"
+        value={values.password}
+        onChange={handleInputChange} />
+      <input type="submit" value="Login" />
+    </form>
   )
 }
 
-export default Login
+
