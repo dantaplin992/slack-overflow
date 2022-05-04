@@ -10,6 +10,10 @@ function chat(io) {
 
     io.emit('displayMessage', msg)
   })
+
+  socket.on('disconnect', () => {
+    console.log(`socket ${socket.id} disconnected`)
+  })
 })
 };
 

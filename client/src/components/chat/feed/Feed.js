@@ -24,17 +24,17 @@ class Feed extends React.Component {
       ).then((data) => {
         that.setState(
           {
-            messages: data
+            messages: data,
+            renderedHistoric: true
           }
         )
       })
   }
 
-  render = () => {
-    this.getAllMessages()
+  render() {
     const messageComponents = []
     for (let i = 0; i < this.state.messages.length; i++) {
-      messageComponents.push(<Message />)
+      messageComponents.push(<Message text={this.state.messages[i].message} key={i} />)
     }
     return (
       <div className='Feed'>
@@ -43,6 +43,10 @@ class Feed extends React.Component {
         <MessageInput />
       </div>
     )
+  }
+
+  componentDidMount() {
+    this.getAllMessages()
   }
 }
 
