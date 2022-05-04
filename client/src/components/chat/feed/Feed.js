@@ -3,8 +3,8 @@ import Message from './Message'
 import MessageInput from './MessageInput'
 
 class Feed extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       messages: ["Message 1", "Message 2", "Message 3"]
     }
