@@ -17,8 +17,7 @@ const MessageSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Message"
     }, 
-    timeStamp: date
-    
+    timeStamp: Date,
 });
 
 const Message = mongoose.model("Message", MessageSchema);

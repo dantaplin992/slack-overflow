@@ -46,5 +46,4 @@ describe("Message model", () => {
     
         expect(message.timeStamp).toEqual(new Date("2022-04-20T13:33:42.767Z"))
       });
-
 });
