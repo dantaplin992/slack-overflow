@@ -1,7 +1,7 @@
 import '../App.css';
 import React from 'react'
-import UserAuth from './UserAuth'
-import Chat from './Chat'
+import UserAuth from './userAuth/UserAuth'
+import Chat from './chat/Chat'
 
 class App extends React.Component {
   constructor() {
