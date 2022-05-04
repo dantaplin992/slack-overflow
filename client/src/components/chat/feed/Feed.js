@@ -6,18 +6,40 @@ class Feed extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      messages: ["Message 1", "Message 2", "Message 3"]
+      messages: [],
+      renderedHistoric: false
     }
   }
+
+  getAllMessages = () => {
+    const that = this
+    const url = 'http://localhost:5000/messages/all'
+    fetch(url, {
+      method: "GET",
+      mode: 'cors',
+      credentials: 'include',
+      
+    }
+      ).then(res => res.json()
+      ).then((data) => {
+        that.setState(
+          {
+            messages: data
+          }
+        )
+      })
+  }
+
   render = () => {
-    const msgs = []
+    this.getAllMessages()
+    const messageComponents = []
     for (let i = 0; i < this.state.messages.length; i++) {
-      msgs.push(<Message />)
+      messageComponents.push(<Message />)
     }
     return (
       <div className='Feed'>
         Feed
-        {msgs}
+        {messageComponents}
         <MessageInput />
       </div>
     )
