@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 const initialValues = {
   username: '',
   password: ''
 }
 
-export default function LoginForm() {
+export default function LoginForm(props) {
   const [values, setValues] = useState(initialValues);
 
   const handleInputChange = (e) => {
@@ -19,8 +19,9 @@ export default function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('username :', values.username)
-    console.log('password :', values.password)
+    return (
+      props.loggedIn ? null : console.log("I am the winner!")
+    )
   }
 
   return (
@@ -39,6 +40,7 @@ export default function LoginForm() {
         onChange={handleInputChange} />
       <input type="submit" value="Login" />
     </form>
+
   )
 }
 

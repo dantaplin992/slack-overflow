@@ -9,12 +9,14 @@ class UserAuth extends React.Component {
       displayLogin: true
     }
   }
+  
 
   render = () => {
-    let displayPage = this.state.displayLogin? <Login /> : <Signup />
+    let displayPage = this.state.displayLogin ? <Login loggedIn={ this.state.loggedIn } /> : <Signup />
     return (
       <div className='UserAuth'>
-        UserAuth
+        UserAuth <br />
+        {this.props.loggedIn ?  null : <span>I am logged in on the Auth page</span>}
         {displayPage}
       </div>
     )
