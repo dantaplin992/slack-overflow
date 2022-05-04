@@ -17,10 +17,6 @@ class Chat extends React.Component {
     })
   }
 
-  socketDisconnect() {
-    this.socket = null
-  }
-
   render = () => {
     return (
       <div className='Chat'>
