@@ -6,8 +6,8 @@ import SideBar from './SideBar';
 
 
 class Chat extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.socket = null
   }
 
@@ -21,7 +21,7 @@ class Chat extends React.Component {
   render = () => {
     return (
       <div className='Chat'>
-        <Banner />
+        <Banner currentUser={this.props.currentUser}/>
         <SideBar />
         <Feed />
       </div>

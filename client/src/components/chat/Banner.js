@@ -1,9 +1,12 @@
 import React from 'react'
 
-function Banner() {
+function Banner(props) {
+
+  const { firstName, lastName, email, icon, displayName } = props.currentUser
+  
   return (
     <div className='Banner'>
-      Banner
+      Banner. Hello {firstName} {lastName} <br />
     </div>
   )
 }

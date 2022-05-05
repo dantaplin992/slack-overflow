@@ -18,11 +18,11 @@ const SessionsController = {
     } else {
       res.json({
         message: "loggedIn",
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        icon: user.icon,
-        displayName: user.displayName
+        firstName: `${user.firstName}`,
+        lastName: `${user.lastName}`,
+        email: `${user.email}`,
+        icon: `${user.icon}`,
+        displayName: `${user.displayName}`
     })
   }
 })
