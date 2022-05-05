@@ -1,4 +1,5 @@
-import '../App.css';
+import '../styles/App.css'
+import '../styles/index.css'
 import React from 'react'
 import UserAuth from './userAuth/UserAuth'
 import Chat from './chat/Chat'
@@ -7,7 +8,7 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      loggedIn: false
+      loggedIn: true
     }
   }
 
@@ -54,4 +55,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default App
