@@ -12,7 +12,7 @@ class UserAuth extends React.Component {
   
 
   render = () => {
-    let displayPage = this.state.displayLogin ? <Login loggedIn={ this.state.loggedIn } /> : <Signup />
+    let displayPage = this.state.displayLogin ? <Login loginFunction={this.props.loginFunction} /> : <Signup />
     return (
       <div className='UserAuth'>
         UserAuth <br />

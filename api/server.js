@@ -1,25 +1,27 @@
 const express = require('express')
 const app = express()
-const path = require("path");
+const path = require("path")
+const cors = require('cors')
 //const { default: UserAuth } = require('../client/src/components/userAuth/UserAuth');
+const sessionsRouter = require("./routes/sessions")
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: true,
+  credentials: true
+}))
+app.use(express.json())
 
 app.set('view engine', 'ejs')
 
 app.set("views", path.join(__dirname, "views"));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")))
 
 app.get('/', (req, res) => {
   res.render('index')
 })
 
-// app.post('/login', (req, res) => {
-//   const username = req.body.username
-//   const password = req.body.password
-//   User.findOne({ username: username, password: password }, (err, user) => {
-//     if (err) { return res.status(500).send(err) }
-//     if (!user) { return res.status(401).send(false) }
-//     return res.status(200).send(true)
-//   })
-// })
+app.use("/sessions", sessionsRouter)
 
 module.exports = app

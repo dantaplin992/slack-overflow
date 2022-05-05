@@ -1,47 +1,35 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-const initialValues = {
-  username: '',
-  password: ''
-}
-
-export default function LoginForm(props) {
-  const [values, setValues] = useState(initialValues);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-
-    setValues({
-      ...values,
-      [name]: value,
-    })
+class Login extends React.Component {
+  constructor(props) {
+    super(props)
   }
+  
+  render = () => {
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    return (
-      props.loggedIn ? null : console.log("I am the winner!")
-    )
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-      type="text"
-      name="username"
-      placeholder="username"
-      value={values.username}
-      onChange={handleInputChange} />
-      <input
-        type="text"
-        name="password"
-        placeholder="password"
-        value={values.password}
-        onChange={handleInputChange} />
-      <input type="submit" value="Login" />
-    </form>
-
-  )
+    const handleSubmit = (e) => {
+      const email = e.target.email.value
+      const password = e.target.password.value
+      e.preventDefault()
+      this.props.loginFunction(email, password)
+    }
+      
+      return (
+        <div>
+        <form onSubmit={handleSubmit}>
+          <input
+          type="text"
+          name="email"
+          placeholder="email"
+          />
+          <input
+            type="text"
+            name="password"
+            placeholder="password" />
+          <input type="submit" value="Login" />
+        </form>
+    </div>
+  )}
 }
-
-
+  
+export default Login
