@@ -2,7 +2,8 @@ import React from 'react'
 import io from 'socket.io-client'
 import Feed from './feed/Feed'
 import Banner from './Banner'
-import Rooms from './Rooms'
+import SideBar from './SideBar';
+
 
 class Chat extends React.Component {
 
@@ -19,7 +20,7 @@ class Chat extends React.Component {
     return (
       <div className='Chat'>
         <Banner />
-        <Rooms />
+        <SideBar />
         <Feed />
       </div>
     )

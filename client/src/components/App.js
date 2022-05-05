@@ -1,4 +1,5 @@
 import '../App.css';
+import '../index.css';
 import React from 'react'
 import UserAuth from './userAuth/UserAuth'
 import Chat from './chat/Chat'
