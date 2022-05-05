@@ -25,7 +25,13 @@ class App extends React.Component {
     .then(data => {
       console.log('Success: ', data)
       if (data.message === 'loggedIn') {
-        this.setState({ loggedIn: true })
+        this.setState({ loggedIn: true, 
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        icon: data.icon,
+        displayName: data.displayName
+       })
       }
     })
   }
