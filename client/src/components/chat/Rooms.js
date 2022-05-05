@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
+import SideBar from './SideBar/SideBar';
 
 class Rooms extends React.Component {
   render = () => {
     return (
-      <div className='Rooms'>
-        Rooms
+      <div className="flex">
+        <SideBar />
       </div>
     )
   }
