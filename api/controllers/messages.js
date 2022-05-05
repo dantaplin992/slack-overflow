@@ -9,13 +9,12 @@ const HomeController = {
     })
   },
   New: (req, res) => {
-    const message = new Message({ message: req.query.message })
-    message.save((err) => {
-      if (err) {
-        throw err;
-      }
-    })
-    res.redirect('/messages/all')
+    console.log("Body: " + req.body)
+    const message = new Message(req.body)
+    console.log(message)
+    Message.insertOne(
+      { message: req.body.message }
+    )
   },
   Delete: (req, res) => {
     const postId = req.query.id
