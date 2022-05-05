@@ -9,6 +9,7 @@ app.use(cors({
   credentials: true
 }))
 
+app.use(express.json())
 const homeRouter = require('./routes/home')
 const messagesRouter = require('./routes/messages')
 

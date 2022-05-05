@@ -53,9 +53,25 @@ class Feed extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state.newMessageInput)
     event.preventDefault()
-    this.socket.emit('newMessage', { message: this.state.newMessageInput})
+    const newMessage = { message: this.state.newMessageInput}
+
+    this.passMessageToServer(newMessage)
+    this.socket.emit('newMessage', newMessage)
+  }
+
+  passMessageToServer(newMessage) {
+    console.log("Message: " + newMessage.message)
+    const url = `http://localhost:5000/messages/new`
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newMessage)
+    }).then((result) => {
+      console.log(result)
+    })
   }
 
   displayNewMessage(messageObj) {

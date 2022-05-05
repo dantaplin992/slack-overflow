@@ -1,6 +1,6 @@
 const Message = require('../models/message')
 
-const HomeController = {
+const MessageController = {
   All: (req, res) => {
     Message.find(
 
@@ -9,12 +9,11 @@ const HomeController = {
     })
   },
   New: (req, res) => {
-    console.log("Body: " + req.body)
     const message = new Message(req.body)
     console.log(message)
-    Message.insertOne(
-      { message: req.body.message }
-    )
+    message.save((err) => {
+      if (err) throw err
+    })
   },
   Delete: (req, res) => {
     const postId = req.query.id
@@ -26,4 +25,4 @@ const HomeController = {
   }
 };
 
-module.exports = HomeController;
+module.exports = MessageController;
