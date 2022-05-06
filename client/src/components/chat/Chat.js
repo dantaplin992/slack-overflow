@@ -19,14 +19,21 @@ class Chat extends React.Component {
 
   render = () => {
     const { currentUser } = this.props.currentState
+    const { logoutFunction } = this.props
   
     return (
       <div className='Chat'>
-        <Banner currentUser={currentUser}/>
+        <Banner currentUser={currentUser} logoutFunction={logoutFunction}/>
         <SideBar />
         <Feed />
       </div>
     )
+  }
+
+  componentDidMount() {
+    if(!this.socket) {
+      this.socketConnect()
+    }
   }
 }
 
