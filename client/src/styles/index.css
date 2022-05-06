@@ -34,7 +34,7 @@
     h-24
   }
   .bottom-sub-bar {
-    @apply flex flex-row items-center justify-between
+    @apply flex flex-row items-center 
     fixed left-24 right-24 bottom-4
     rounded-md
     bg-gray-800
@@ -61,7 +61,7 @@
 
   .bottom-bar-icon {
     @apply relative flex items-center justify-center
-    h-7 w-7 mt-0 mb-2 ml-0 mr-4
+    h-7 w-7 mt-0 mb-2 ml-0 mr-2
     bg-gray-800 text-gray-500
     hover:bg-purple-500 hover:text-white
     rounded-md

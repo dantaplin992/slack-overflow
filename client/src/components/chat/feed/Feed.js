@@ -113,6 +113,21 @@ class Feed extends React.Component {
               className='bottom-bar-icon'>
               <BsImage size="20" />
             </button>
+            <button
+              type="submit"
+              className='bottom-bar-icon'>
+              <BsImage size="20" />
+            </button>
+            <button
+              type="submit"
+              className='bottom-bar-icon'>
+              <BsImage size="20" />
+            </button>
+            <button
+              type="submit"
+              className='bottom-bar-icon'>
+              <BsImage size="20" />
+            </button>
             </div>
           </div>
         </form>
