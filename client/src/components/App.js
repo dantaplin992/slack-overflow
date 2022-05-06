@@ -1,31 +1,28 @@
 import '../styles/App.css'
 import '../styles/index.css'
 import React from 'react'
+
 import UserAuth from './userAuth/UserAuth'
 import Chat from './chat/Chat'
 
 class App extends React.Component {
   constructor() {
     super()
-    this.state = {
-      loggedIn: false,
-      currentUser: null
-    }
-  }
-
-  componentDidMount() {
-    const user = localStorage.getItem('user')
-    if (user) {
-      this.setState({
+    if (localStorage.getItem('currentUser')) {
+      this.state = {
         loggedIn: true,
-        currentUser: user
-      })
+        currentUser: JSON.parse(localStorage.getItem('currentUser'))
+      }
+    } else {
+      this.state = {
+        loggedIn: false,
+        currentUser: null
+      }
     }
   }
 
   login = (email, password) => {
     const credentials = { email: email, password: password } 
-    console.log('credentials: ', credentials)
 
     fetch('http://localhost:5000/sessions/new', {
       method: 'POST',
@@ -35,7 +32,6 @@ class App extends React.Component {
       body: JSON.stringify(credentials),
     }).then(response => response.json())
     .then(data => {
-      console.log('Data: ', data)
       if (data.message === 'loggedIn') {
 
         const setUser = { firstName: data.firstName,
@@ -46,7 +42,7 @@ class App extends React.Component {
                   }
 
         this.setState({ loggedIn: true, currentUser: setUser })
-        localStorage.setItem('user', setUser)
+        localStorage.setItem('currentUser', JSON.stringify(setUser))
       }
     })
   }
@@ -59,10 +55,8 @@ class App extends React.Component {
     )
   }
   
-  render = () => {
-    console.log('current user from render func: ', this.state.currentUser)
-    console.log('local storage: ', localStorage.getItem('user'))
-    const content = this.state.loggedIn ? <Chat currentUser={this.state.currentUser}/> : <UserAuth loginFunction={this.login}/>
+  render = () => { 
+    const content = this.state.loggedIn ?  <Chat currentState={this.state}/> : <UserAuth loginFunction={this.login}/>
     return (
       <div className='App'>
         {content}

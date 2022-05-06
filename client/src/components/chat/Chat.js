@@ -1,9 +1,9 @@
 import React from 'react'
+import { ReactSession } from 'react-client-session'
 import io from 'socket.io-client'
 import Feed from './feed/Feed'
 import Banner from './Banner'
 import SideBar from './SideBar';
-
 
 class Chat extends React.Component {
   constructor(props) {
@@ -19,9 +19,11 @@ class Chat extends React.Component {
   }
 
   render = () => {
+    const { currentUser } = this.props.currentState
+  
     return (
       <div className='Chat'>
-        <Banner currentUser={this.props.currentUser}/>
+        <Banner currentUser={currentUser}/>
         <SideBar />
         <Feed />
       </div>
