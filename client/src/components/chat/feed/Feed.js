@@ -2,6 +2,9 @@ import React from 'react'
 import Message from './Message'
 import MessageInput from './MessageInput'
 import io from 'socket.io-client'
+import { IoSend } from "react-icons/io5";
+import { BsImage } from "react-icons/bs";
+
 
 class Feed extends React.Component {
   constructor(props) {
@@ -90,14 +93,43 @@ class Feed extends React.Component {
     }
     return (
       <div className='Feed'>
-        Feed
         {messageComponents}
         <form>
-          <label>
-            Message:
-            <input type="text" onChange={this.handleChange} />
-          </label>
-          <input type="submit" onClick={this.handleSubmit} />
+          <div className='bottom-bar'>
+            <input 
+              className='bottom-bar-input' 
+              type="text" 
+              placeholder="Enter message..." 
+              onChange={this.handleChange} />
+            <button
+              type="submit"
+              className='send-button' 
+              onClick={this.handleSubmit}>
+              <IoSend size="20" />
+            </button>
+            <div className='bottom-sub-bar'>
+            <button
+              type="submit"
+              className='bottom-bar-icon'>
+              <BsImage size="20" />
+            </button>
+            <button
+              type="submit"
+              className='bottom-bar-icon'>
+              <BsImage size="20" />
+            </button>
+            <button
+              type="submit"
+              className='bottom-bar-icon'>
+              <BsImage size="20" />
+            </button>
+            <button
+              type="submit"
+              className='bottom-bar-icon'>
+              <BsImage size="20" />
+            </button>
+            </div>
+          </div>
         </form>
       </div>
     )

@@ -7,21 +7,21 @@ const SideBar = () => {
                     flex flex-col
                     bg-gray-800 text-white shadow-lg">
 
-        <SideBarIcon icon={<DiRuby size="28" />} name="Ruby" id="Ruby"/>
+        <SideBarIcon icon={<DiRuby size="28" />} type="submit" text="Ruby" id="Ruby"/>
         <Divider />
-        <SideBarIcon icon={<DiJsBadge size="24" />} name="JavaScript" id="Javascript" />
-        <SideBarIcon icon={<DiReact size="28" />} name="React" id="React" />
+        <SideBarIcon icon={<DiJsBadge size="24" />} type="submit" text="JavaScript" id="Javascript" />
+        <SideBarIcon icon={<DiReact size="28" />} type="submit" text="React" id="React" />
         <Divider />
-        <SideBarIcon icon={<DiCss3 size="24" />} name="React" id="React" />
-        <SideBarIcon icon={<DiCssdeck size="24" />} name="CSS Deck" id="CSS-Deck" />
-        <SideBarIcon icon={<DiCssTricks size="24" />} name="CSS Tricks" id="CSS-Tricks" />
+        <SideBarIcon icon={<DiCss3 size="24" />} type="submit" text="CSS" id="CSS" />
+        <SideBarIcon icon={<DiCssdeck size="24" />} type="submit" text="CSS Deck" id="CSS-Deck" />
+        <SideBarIcon icon={<DiCssTricks size="24" />} type="submit" text="CSS Tricks" id="CSS-Tricks" />
 
 
     </div>
   )
 }
 
-const SideBarIcon = ({ icon, text = 'title 😊' }) => {
+const SideBarIcon = ({ icon, text}) => {
   return (
     <div className="sidebar-icon group">
       {icon}
