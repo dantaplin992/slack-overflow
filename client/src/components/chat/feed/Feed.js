@@ -54,7 +54,7 @@ class Feed extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    const newMessage = { message: this.state.newMessageInput}
+    const newMessage = { message: this.state.newMessageInput, roomName: this.props.currentRoom }
 
     this.passMessageToServer(newMessage)
     this.socket.emit('newMessage', newMessage)
@@ -83,14 +83,23 @@ class Feed extends React.Component {
     this.setState({ messages: newMessages})
   }
 
+  filterMessagesByRoom() {
+    const allMessages = this.state.messages
+    const filteredMessages = this.state.messages.filter(obj => {
+      return obj.roomName === this.props.currentRoom
+    })
+    return filteredMessages
+  }
+
   render() {
     const messageComponents = []
-    for (let i = 0; i < this.state.messages.length; i++) {
-      messageComponents.push(<Message text={this.state.messages[i].message} key={i} />)
+    const filteredMessages = this.filterMessagesByRoom()
+    for (let i = 0; i < filteredMessages.length; i++) {
+      messageComponents.push(<Message text={filteredMessages[i].message} key={i} />)
     }
     return (
       <div className='Feed'>
-        Feed
+        <p>{this.props.currentRoom}</p>
         {messageComponents}
         <form>
           <label>

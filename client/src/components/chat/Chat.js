@@ -8,6 +8,9 @@ class Chat extends React.Component {
   constructor(props) {
     super(props)
     this.socket = null
+    this.state = {
+      currentRoom: "General",
+    }
   }
 
   socketConnect() {
@@ -17,14 +20,18 @@ class Chat extends React.Component {
     })
   }
 
+  changeRoom(newRoom) {
+    this.setState({ currentRoom: newRoom })
+  }
+
   render = () => {
     const { currentUser } = this.props.currentState
   
     return (
       <div className='Chat'>
         <Banner currentUser={currentUser}/>
-        <SideBar />
-        <Feed />
+        <SideBar changeRoom={this.changeRoom}/>
+        <Feed currentRoom={this.state.currentRoom}/>
       </div>
     )
   }
