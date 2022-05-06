@@ -50,13 +50,15 @@ class App extends React.Component {
   logout = () => {
     this.setState(
       {
-        loggedIn: false
+        loggedIn: false,
+        currentUser: {}
       }
-    )
+      )
+    localStorage.removeItem('currentUser')
   }
   
   render = () => { 
-    const content = this.state.loggedIn ?  <Chat currentState={this.state}/> : <UserAuth loginFunction={this.login}/>
+    const content = this.state.loggedIn ?  <Chat currentState={this.state} logoutFunction={this.logout}/> : <UserAuth loginFunction={this.login}/>
     return (
       <div className='App'>
         {content}
