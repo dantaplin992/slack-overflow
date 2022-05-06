@@ -1,5 +1,4 @@
 import React from 'react'
-import io from 'socket.io-client'
 import Feed from './feed/Feed'
 import Banner from './Banner'
 import SideBar from './SideBar';
@@ -12,13 +11,6 @@ class Chat extends React.Component {
       currentRoom: "General",
     }
     this.changeRoom = this.changeRoom.bind(this)
-  }
-
-  socketConnect() {
-    this.socket = io(`localhost:5000`)
-    this.socket.on('handshake', (msg) => {
-      console.log(msg)
-    })
   }
 
   changeRoom(newRoom) {

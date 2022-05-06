@@ -1,7 +1,6 @@
 import React from 'react'
 import Message from './Message'
 import MessageInput from './MessageInput'
-import equal from 'fast-deep-equal'
 import io from 'socket.io-client'
 
 class Feed extends React.Component {
@@ -146,7 +145,9 @@ class Feed extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(!equal(this.props.currentRoom, prevProps.currentRoom)) this.getRoomMessages()
+    if(this.props.currentRoom != prevProps.currentRoom) {
+      this.getRoomMessages()
+    }
   }
 }
 
