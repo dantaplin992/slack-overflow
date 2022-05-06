@@ -1,6 +1,7 @@
 import React from 'react'
 import Message from './Message'
 import MessageInput from './MessageInput'
+import equal from 'fast-deep-equal'
 import io from 'socket.io-client'
 
 class Feed extends React.Component {
@@ -8,8 +9,8 @@ class Feed extends React.Component {
     super(props)
     this.state = {
       messages: [],
-      renderedHistoric: false,
       newMessageInput: '',
+      upToDate: false,
     }
     this.socket = null
 
@@ -30,11 +31,39 @@ class Feed extends React.Component {
       that.setState(
         {
           messages: data,
-          renderedHistoric: true
         }
       )
     })
   }
+
+  getRoomMessages() {
+    const that = this
+    const url = `http://localhost:5000/messages/room/${this.props.currentRoom}`
+    fetch(url, {
+      method: "GET",
+      mode: 'cors',
+      credentials: 'include',
+    }
+    ).then(res => res.json()
+    ).then((data) => {
+      that.setState({ messages: data })
+    })
+  }
+
+  setMessagesState(newMessages) {
+    this.setState({ messages: newMessages })
+  }
+
+  objectsAreSame(x, y) {
+    var objectsAreSame = true;
+    for(var propertyName in x) {
+       if(x[propertyName] !== y[propertyName]) {
+          objectsAreSame = false;
+          break;
+       }
+    }
+    return objectsAreSame;
+ }
 
   socketConnect() {
     this.socket = io(`localhost:5000`)
@@ -93,9 +122,8 @@ class Feed extends React.Component {
 
   render() {
     const messageComponents = []
-    const filteredMessages = this.filterMessagesByRoom()
-    for (let i = 0; i < filteredMessages.length; i++) {
-      messageComponents.push(<Message text={filteredMessages[i].message} key={i} />)
+    for (let i = 0; i < this.state.messages.length; i++) {
+      messageComponents.push(<Message text={this.state.messages[i].message} key={i} />)
     }
     return (
       <div className='Feed'>
@@ -114,7 +142,11 @@ class Feed extends React.Component {
 
   componentDidMount() {
     if (!this.socket) this.socketConnect()
-    this.getAllMessages()
+    this.getRoomMessages()
+  }
+
+  componentDidUpdate(prevProps) {
+    if(!equal(this.props.currentRoom, prevProps.currentRoom)) this.getRoomMessages()
   }
 }
 

@@ -11,6 +11,7 @@ class Chat extends React.Component {
     this.state = {
       currentRoom: "General",
     }
+    this.changeRoom = this.changeRoom.bind(this)
   }
 
   socketConnect() {
@@ -21,6 +22,7 @@ class Chat extends React.Component {
   }
 
   changeRoom(newRoom) {
+    console.log(newRoom)
     this.setState({ currentRoom: newRoom })
   }
 
