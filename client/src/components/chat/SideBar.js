@@ -1,4 +1,5 @@
 import {DiRuby, DiJsBadge, DiReact, DiCss3, DiCssdeck, DiCssTricks} from "react-icons/di";
+import React from 'react'
 
 const SideBar = () => {
   return (
