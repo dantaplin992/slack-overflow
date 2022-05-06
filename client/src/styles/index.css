@@ -24,6 +24,60 @@
     border border-gray-900 rounded-full
     mx-2
   }
+
+  .bottom-bar {
+    @apply flex flex-row items-center justify-between
+    fixed left-20 right-4 bottom-4
+    rounded-md shadow-lg
+    outline outline-1
+    bg-gray-800 outline-slate-500 px-2
+    h-24
+  }
+  .bottom-sub-bar {
+    @apply flex flex-row items-center justify-between
+    fixed left-24 right-24 bottom-4
+    rounded-md
+    bg-gray-800
+    h-8
+  }
+
+  .bottom-bar-input {
+    @apply w-full
+    bg-transparent outline-none
+    ml-2 mr-auto mb-10
+    text-gray-300 placeholder-gray-500
+    cursor-text
+  }
+  
+
+  .send-button {
+    @apply relative flex items-center justify-center
+    h-7 w-10 hover:w-16 mt-12 mb-0 mr-1
+    bg-gray-800 text-gray-500
+    hover:bg-purple-500 hover:text-white
+    rounded-md 
+    transition-all duration-300 ease-linear
+  }
+
+  .bottom-bar-icon {
+    @apply relative flex items-center justify-center
+    h-7 w-7 mt-0 mb-2 ml-0 mr-4
+    bg-gray-800 text-gray-500
+    hover:bg-purple-500 hover:text-white
+    rounded-md
+    transition-all duration-300 ease-linear
+  }
+
+  .Feed {
+    @apply flex flex-col items-center
+    mt-0 ml-0 mx-auto px-0 pb-12
+    bg-gray-900
+    m-0
+    h-screen w-full
+    overflow-auto
+    text-sm text-left
+  }
+
 }
 
 body {
