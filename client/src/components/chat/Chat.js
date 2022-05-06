@@ -1,5 +1,4 @@
 import React from 'react'
-import { ReactSession } from 'react-client-session'
 import io from 'socket.io-client'
 import Feed from './feed/Feed'
 import Banner from './Banner'
@@ -28,12 +27,6 @@ class Chat extends React.Component {
         <Feed />
       </div>
     )
-  }
-
-  componentDidMount() {
-    if(!this.socket) {
-      this.socketConnect()
-    }
   }
 }
 

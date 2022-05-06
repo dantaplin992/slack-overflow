@@ -1,6 +1,6 @@
 const Message = require('../models/message')
 
-const HomeController = {
+const MessageController = {
   All: (req, res) => {
     Message.find(
 
@@ -9,13 +9,11 @@ const HomeController = {
     })
   },
   New: (req, res) => {
-    const message = new Message({ message: req.query.message })
+    const message = new Message(req.body)
+    console.log(message)
     message.save((err) => {
-      if (err) {
-        throw err;
-      }
+      if (err) throw err
     })
-    res.redirect('/messages/all')
   },
   Delete: (req, res) => {
     const postId = req.query.id
@@ -27,4 +25,4 @@ const HomeController = {
   }
 };
 
-module.exports = HomeController;
+module.exports = MessageController;
