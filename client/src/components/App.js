@@ -1,20 +1,28 @@
 import '../styles/App.css'
 import '../styles/index.css'
 import React from 'react'
+
 import UserAuth from './userAuth/UserAuth'
 import Chat from './chat/Chat'
 
 class App extends React.Component {
   constructor() {
     super()
-    this.state = {
-      loggedIn: true
+    if (localStorage.getItem('currentUser')) {
+      this.state = {
+        loggedIn: true,
+        currentUser: JSON.parse(localStorage.getItem('currentUser'))
+      }
+    } else {
+      this.state = {
+        loggedIn: false,
+        currentUser: null
+      }
     }
   }
 
   login = (email, password) => {
     const credentials = { email: email, password: password } 
-    console.log('credentials: ', credentials)
 
     fetch('http://localhost:5000/sessions/new', {
       method: 'POST',
@@ -24,15 +32,17 @@ class App extends React.Component {
       body: JSON.stringify(credentials),
     }).then(response => response.json())
     .then(data => {
-      console.log('Success: ', data)
       if (data.message === 'loggedIn') {
-        this.setState({ loggedIn: true, 
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        icon: data.icon,
-        displayName: data.displayName
-       })
+
+        const setUser = { firstName: data.firstName,
+                    lastName: data.lastName,
+                    email: data.email,
+                    icon: data.icon,
+                    displayName: data.displayName
+                  }
+
+        this.setState({ loggedIn: true, currentUser: setUser })
+        localStorage.setItem('currentUser', JSON.stringify(setUser))
       }
     })
   }
@@ -45,8 +55,8 @@ class App extends React.Component {
     )
   }
   
-  render = () => {
-    const content = this.state.loggedIn ? <Chat /> : <UserAuth loginFunction={this.login}/>
+  render = () => { 
+    const content = this.state.loggedIn ?  <Chat currentState={this.state}/> : <UserAuth loginFunction={this.login}/>
     return (
       <div className='App'>
         {content}
