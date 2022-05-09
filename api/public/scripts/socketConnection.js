@@ -24,12 +24,13 @@ function chat(io) {
     // Sending & receiving messages in React client app
 
     socket.on('newMessage', (newMessage) => {
-
-      io.to(currentRoom).emit('displayNewMessage', newMessage)
+      console.log(`MESSAGE FOR ROOM ${newMessage.roomName}`)
+      io.to(newMessage.roomName).emit('displayNewMessage', newMessage)
     })
 
-    socket.on('joinRoom', (roomName) => {
-      console.log(`joinging room: ${roomName}`)
+    socket.on('changeRoom', (roomName) => {
+      console.log(`${socket.id} joinging room: ${roomName}`)
+      socket.leave(currentRoom)
       joinNewRoom(socket, roomName)
       currentRoom = roomName
     })
