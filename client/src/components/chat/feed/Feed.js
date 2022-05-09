@@ -87,9 +87,10 @@ class Feed extends React.Component {
     event.preventDefault()
     const newTimeStamp = new Date
     const newMessage = { message: this.state.newMessageInput, roomName: this.props.currentRoom, timeStamp: newTimeStamp, authorId: this.props.currentUser.id }
+    const socketMessage = { message: this.state.newMessageInput, roomName: this.props.currentRoom, timeStamp: newTimeStamp, authorId: { displayName: this.props.currentUser.displayName } }
 
     this.passMessageToServer(newMessage)
-    this.socket.emit('newMessage', newMessage)
+    this.socket.emit('newMessage', socketMessage)
   }
 
   passMessageToServer(newMessage) {
