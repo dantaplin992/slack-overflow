@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const bcrypt = require('bcrypt')
 
 const SessionsController = {
   New: (req, res, next) => {
@@ -11,21 +12,40 @@ const SessionsController = {
         res.json({
           message: "emailIncorrect"
         })
-      } else if (user.password != password) {
-        res.json({
-          message: "passwordIncorrect"
-      })
-    } else {
-      res.json({
-        message: "loggedIn",
-        firstName: `${user.firstName}`,
-        lastName: `${user.lastName}`,
-        email: `${user.email}`,
-        icon: `${user.icon}`,
-        displayName: `${user.displayName}`
+      // } else if (user.password != password) {
+      //   res.json({
+      //     message: "passwordIncorrect"
+      //   })
+      // } else {
+      //   res.json({
+      //     message: "loggedIn",
+      //     firstName: `${user.firstName}`,
+      //     lastName: `${user.lastName}`,
+      //     email: `${user.email}`,
+      //     icon: `${user.icon}`,
+      //     displayName: `${user.displayName}`
+      //   })
+      // }
+      } else {
+        bcrypt.compare(password, user.password, (err, result) => {
+          if (err) throw err
+          if (result) {
+            res.json({
+              message: "loggedIn",
+              firstName: `${user.firstName}`,
+              lastName: `${user.lastName}`,
+              email: `${user.email}`,
+              icon: `${user.icon}`,
+              displayName: `${user.displayName}`
+            })
+          } else {
+            res.json({
+              message: "passwordIncorrect"
+            })
+          }
+        })
+      }
     })
-  }
-})
   }
 }
 
