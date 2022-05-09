@@ -1,0 +1,10 @@
+{
+  "user": {
+    "firstName": "Dave",
+    "lastName": "Tester",
+    "displayName": "DaveTest",
+    "icon": "String",
+    "password": "pass",
+    "email": "test@example.org"
+  }
+}

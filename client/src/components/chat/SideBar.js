@@ -1,32 +1,34 @@
 import {DiRuby, DiJsBadge, DiReact, DiCss3, DiCssdeck, DiCssTricks} from "react-icons/di";
-import React from 'react'
+import React, { useState } from 'react'
 
-const SideBar = () => {
+const SideBar = ({ changeRoom }) => {
   return (
     <div className="fixed top-0 left-0 h-screen w-16
                     flex flex-col
                     bg-gray-800 text-white shadow-lg">
-
-        <SideBarIcon icon={<DiRuby size="28" />} name="Ruby" id="Ruby"/>
+        <SideBarIcon icon={<DiRuby size="28" />} name="Ruby" id="Ruby" roomChange={changeRoom} />
         <Divider />
-        <SideBarIcon icon={<DiJsBadge size="24" />} name="JavaScript" id="Javascript" />
-        <SideBarIcon icon={<DiReact size="28" />} name="React" id="React" />
+        <SideBarIcon icon={<DiJsBadge size="24" />} name="JavaScript" id="Javascript" roomChange={changeRoom} />
+        <SideBarIcon icon={<DiReact size="28" />} name="React" id="React" roomChange={changeRoom} />
         <Divider />
-        <SideBarIcon icon={<DiCss3 size="24" />} name="React" id="React" />
-        <SideBarIcon icon={<DiCssdeck size="24" />} name="CSS Deck" id="CSS-Deck" />
-        <SideBarIcon icon={<DiCssTricks size="24" />} name="CSS Tricks" id="CSS-Tricks" />
-
-
+        <SideBarIcon icon={<DiCss3 size="24" />} name="React" id="React" roomChange={changeRoom} />
+        <SideBarIcon icon={<DiCssdeck size="24" />} name="CSS Deck" id="CSS-Deck" roomChange={changeRoom} />
+        <SideBarIcon icon={<DiCssTricks size="24" />} name="CSS Tricks" id="CSS-Tricks" roomChange={changeRoom} />
     </div>
   )
 }
 
-const SideBarIcon = ({ icon, text = 'title 😊' }) => {
+
+const SideBarIcon = ({ icon, name, roomChange }) => {
+
+  function giveRoomName(txt) {
+    roomChange(txt)
+  }
   return (
     <div className="sidebar-icon group">
-      {icon}
+      <button onClick={() => giveRoomName(name)}>{icon}</button>
       <span className="sidebar-tooltip group-hover:scale-100">
-      {text}
+      {name}
       </span>
     </div>
   );

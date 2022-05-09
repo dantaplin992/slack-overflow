@@ -3,18 +3,34 @@ import Feed from './feed/Feed'
 import Banner from './Banner'
 import SideBar from './SideBar';
 
-
 class Chat extends React.Component {
+  constructor(props) {
+    super(props)
+    this.socket = null
+    this.state = {
+      currentRoom: "General",
+    }
+    this.changeRoom = this.changeRoom.bind(this)
+  }
+
+  changeRoom(newRoom) {
+    console.log(newRoom)
+    this.setState({ currentRoom: newRoom })
+  }
 
   render = () => {
+    const { currentUser } = this.props.currentState
+    const { logoutFunction } = this.props
+  
     return (
       <div className='Chat'>
-        <Banner />
-        <SideBar />
-        <Feed />
+        <Banner currentUser={currentUser}/>
+        <SideBar changeRoom={this.changeRoom}/>
+        <Feed currentRoom={this.state.currentRoom}/>
       </div>
     )
   }
+
 }
 
 export default Chat

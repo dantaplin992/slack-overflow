@@ -8,6 +8,14 @@ const MessageController = {
       res.send(result)
     })
   },
+  Room: (req, res) => {
+    console.log(req.params)
+    Message.find(
+      { roomName: req.params.roomId }
+    ).then( (result) => {
+      res.send(result)
+    })
+  },
   New: (req, res) => {
     const message = new Message(req.body)
     console.log(message)

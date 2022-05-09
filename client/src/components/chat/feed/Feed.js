@@ -2,14 +2,17 @@ import React from 'react'
 import Message from './Message'
 import MessageInput from './MessageInput'
 import io from 'socket.io-client'
+import { IoSend } from "react-icons/io5";
+import { BsImage } from "react-icons/bs";
+
 
 class Feed extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       messages: [],
-      renderedHistoric: false,
       newMessageInput: '',
+      upToDate: false,
     }
     this.socket = null
 
@@ -30,11 +33,39 @@ class Feed extends React.Component {
       that.setState(
         {
           messages: data,
-          renderedHistoric: true
         }
       )
     })
   }
+
+  getRoomMessages() {
+    const that = this
+    const url = `http://localhost:5000/messages/room/${this.props.currentRoom}`
+    fetch(url, {
+      method: "GET",
+      mode: 'cors',
+      credentials: 'include',
+    }
+    ).then(res => res.json()
+    ).then((data) => {
+      that.setState({ messages: data })
+    })
+  }
+
+  setMessagesState(newMessages) {
+    this.setState({ messages: newMessages })
+  }
+
+  objectsAreSame(x, y) {
+    var objectsAreSame = true;
+    for(var propertyName in x) {
+       if(x[propertyName] !== y[propertyName]) {
+          objectsAreSame = false;
+          break;
+       }
+    }
+    return objectsAreSame;
+ }
 
   socketConnect() {
     this.socket = io(`localhost:5000`)
@@ -43,7 +74,7 @@ class Feed extends React.Component {
     })
 
     this.socket.on('displayNewMessage', (params) => {
-      console.log(`displaying new message: ${params}`)
+      console.log(params.timeStamp)
       this.displayNewMessage(params)
     })
   }
@@ -55,7 +86,7 @@ class Feed extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     const newTimeStamp = new Date
-    const newMessage = { message: this.state.newMessageInput, timeStamp: newTimeStamp }
+    const newMessage = { message: this.state.newMessageInput, roomName: this.props.currentRoom, timeStamp: newTimeStamp }
 
     this.passMessageToServer(newMessage)
     this.socket.emit('newMessage', newMessage)
@@ -83,6 +114,14 @@ class Feed extends React.Component {
     this.setState({ messages: newMessages })
   }
 
+  filterMessagesByRoom() {
+    const allMessages = this.state.messages
+    const filteredMessages = this.state.messages.filter(obj => {
+      return obj.roomName === this.props.currentRoom
+    })
+    return filteredMessages
+  }
+
   render() {
     const messageComponents = []
     for (let i = 0; i < this.state.messages.length; i++) {
@@ -90,14 +129,45 @@ class Feed extends React.Component {
     }
     return (
       <div className='Feed'>
-        Feed
+        <p>{this.props.currentRoom}</p>
+
         {messageComponents}
         <form>
-          <label>
-            Message:
-            <input type="text" onChange={this.handleChange} />
-          </label>
-          <input type="submit" onClick={this.handleSubmit} />
+          <div className='bottom-bar'>
+            <input 
+              className='bottom-bar-input' 
+              type="text" 
+              placeholder="Enter message..." 
+              onChange={this.handleChange} />
+            <button
+              type="submit"
+              className='send-button' 
+              onClick={this.handleSubmit}>
+              <IoSend size="20" />
+            </button>
+            <div className='bottom-sub-bar'>
+            <button
+              type="submit"
+              className='bottom-bar-icon'>
+              <BsImage size="20" />
+            </button>
+            <button
+              type="submit"
+              className='bottom-bar-icon'>
+              <BsImage size="20" />
+            </button>
+            <button
+              type="submit"
+              className='bottom-bar-icon'>
+              <BsImage size="20" />
+            </button>
+            <button
+              type="submit"
+              className='bottom-bar-icon'>
+              <BsImage size="20" />
+            </button>
+            </div>
+          </div>
         </form>
       </div>
     )
@@ -105,7 +175,14 @@ class Feed extends React.Component {
 
   componentDidMount() {
     if (!this.socket) this.socketConnect()
-    this.getAllMessages()
+    this.getRoomMessages()
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.currentRoom != prevProps.currentRoom) {
+      this.socket.emit('joinNewRoom', this.props.currentRoom)
+      this.getRoomMessages()
+    }
   }
 }
 
