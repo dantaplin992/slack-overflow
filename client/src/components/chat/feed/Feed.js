@@ -85,12 +85,14 @@ class Feed extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    const newTimeStamp = new Date
-    const newMessage = { message: this.state.newMessageInput, roomName: this.props.currentRoom, timeStamp: newTimeStamp }
-
-    this.passMessageToServer(newMessage)
-    this.socket.emit('newMessage', newMessage)
-    this.setState({ newMessageInput: '' })
+    if (this.state.newMessageInput != '') {
+      const newTimeStamp = new Date
+      const newMessage = { message: this.state.newMessageInput, roomName: this.props.currentRoom, timeStamp: newTimeStamp }
+  
+      this.passMessageToServer(newMessage)
+      this.socket.emit('newMessage', newMessage)
+      this.setState({ newMessageInput: '' })
+    }
   }
 
   passMessageToServer(newMessage) {
