@@ -74,7 +74,7 @@ class Feed extends React.Component {
     })
 
     this.socket.on('displayNewMessage', (params) => {
-      console.log(`displaying new message: ${params}`)
+      console.log(params.timeStamp)
       this.displayNewMessage(params)
     })
   }
@@ -85,7 +85,8 @@ class Feed extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    const newMessage = { message: this.state.newMessageInput, roomName: this.props.currentRoom }
+    const newTimeStamp = new Date
+    const newMessage = { message: this.state.newMessageInput, roomName: this.props.currentRoom, timeStamp: newTimeStamp }
 
     this.passMessageToServer(newMessage)
     this.socket.emit('newMessage', newMessage)
@@ -180,9 +181,7 @@ class Feed extends React.Component {
 
   componentDidUpdate(prevProps) {
     if(this.props.currentRoom != prevProps.currentRoom) {
-      this.socket.emit('changeRoom', this.props.currentRoom)
-      console.log(`Leaving room: ${prevProps.currentRoom}`)
-      console.log(`Joined room: ${this.props.currentRoom}`)
+      this.socket.emit('joinNewRoom', this.props.currentRoom)
       this.getRoomMessages()
     }
   }
