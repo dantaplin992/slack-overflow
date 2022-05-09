@@ -22,7 +22,8 @@ const SessionsController = {
               lastName: `${user.lastName}`,
               email: `${user.email}`,
               icon: `${user.icon}`,
-              displayName: `${user.displayName}`
+              displayName: `${user.displayName}`,
+              id: `${user._id}`,
             })
           } else {
             res.json({
