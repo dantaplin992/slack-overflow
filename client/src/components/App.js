@@ -66,10 +66,12 @@ class App extends React.Component {
       body: JSON.stringify(newUser),
     }).then(response => response.json())
     .then(data => {
-      console.log('return data: ', data)
       if (data.message === 'signedUp') {
         this.setState({ loggedIn: true, currentUser: newUser })
         localStorage.setItem('currentUser', JSON.stringify(newUser))
+      } else {
+        alert('Email already exists')
+        return
       }
     }
     )
