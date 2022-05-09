@@ -12,7 +12,7 @@ const MessageController = {
     console.log(req.params)
     Message.find(
       { roomName: req.params.roomId }
-    ).then( (result) => {
+    ).populate("authorId").then( (result) => {
       res.send(result)
     })
   },
