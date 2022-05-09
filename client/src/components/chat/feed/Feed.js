@@ -180,6 +180,8 @@ class Feed extends React.Component {
 
   componentDidUpdate(prevProps) {
     if(this.props.currentRoom != prevProps.currentRoom) {
+      console.log(`leaving room: ${prevProps.currentRoom}`)
+      console.log(`joining room: ${this.props.currentRoom}`)
       this.socket.emit('joinNewRoom', this.props.currentRoom)
       this.getRoomMessages()
     }
