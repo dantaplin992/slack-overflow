@@ -20,8 +20,7 @@ const MessageSchema = new mongoose.Schema({
     timeStamp: {
         type: Date,
         default: Date.now
-    },
-    roomName: String,
+    }
 });
 
 const Message = mongoose.model("Message", MessageSchema);

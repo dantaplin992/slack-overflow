@@ -11,8 +11,8 @@ class Feed extends React.Component {
     super(props)
     this.state = {
       messages: [],
+      renderedHistoric: false,
       newMessageInput: '',
-      upToDate: false,
     }
     this.socket = null
 
@@ -33,39 +33,11 @@ class Feed extends React.Component {
       that.setState(
         {
           messages: data,
+          renderedHistoric: true
         }
       )
     })
   }
-
-  getRoomMessages() {
-    const that = this
-    const url = `http://localhost:5000/messages/room/${this.props.currentRoom}`
-    fetch(url, {
-      method: "GET",
-      mode: 'cors',
-      credentials: 'include',
-    }
-    ).then(res => res.json()
-    ).then((data) => {
-      that.setState({ messages: data })
-    })
-  }
-
-  setMessagesState(newMessages) {
-    this.setState({ messages: newMessages })
-  }
-
-  objectsAreSame(x, y) {
-    var objectsAreSame = true;
-    for(var propertyName in x) {
-       if(x[propertyName] !== y[propertyName]) {
-          objectsAreSame = false;
-          break;
-       }
-    }
-    return objectsAreSame;
- }
 
   socketConnect() {
     this.socket = io(`localhost:5000`)
@@ -74,7 +46,7 @@ class Feed extends React.Component {
     })
 
     this.socket.on('displayNewMessage', (params) => {
-      console.log(params.timeStamp)
+      console.log(`displaying new message: ${params}`)
       this.displayNewMessage(params)
     })
   }
@@ -85,8 +57,7 @@ class Feed extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    const newTimeStamp = new Date
-    const newMessage = { message: this.state.newMessageInput, roomName: this.props.currentRoom, timeStamp: newTimeStamp }
+    const newMessage = { message: this.state.newMessageInput}
 
     this.passMessageToServer(newMessage)
     this.socket.emit('newMessage', newMessage)
@@ -115,14 +86,6 @@ class Feed extends React.Component {
     this.setState({ messages: newMessages})
   }
 
-  filterMessagesByRoom() {
-    const allMessages = this.state.messages
-    const filteredMessages = this.state.messages.filter(obj => {
-      return obj.roomName === this.props.currentRoom
-    })
-    return filteredMessages
-  }
-
   render() {
     const messageComponents = []
     for (let i = 0; i < this.state.messages.length; i++) {
@@ -130,8 +93,6 @@ class Feed extends React.Component {
     }
     return (
       <div className='Feed'>
-        <p>{this.props.currentRoom}</p>
-
         {messageComponents}
         <form>
           <div className='bottom-bar'>
@@ -176,14 +137,7 @@ class Feed extends React.Component {
 
   componentDidMount() {
     if (!this.socket) this.socketConnect()
-    this.getRoomMessages()
-  }
-
-  componentDidUpdate(prevProps) {
-    if(this.props.currentRoom != prevProps.currentRoom) {
-      this.socket.emit('joinNewRoom', this.props.currentRoom)
-      this.getRoomMessages()
-    }
+    this.getAllMessages()
   }
 }
 
