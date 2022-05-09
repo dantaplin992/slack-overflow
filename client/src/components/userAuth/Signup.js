@@ -16,7 +16,6 @@ function Signup(props) {
 
     const isValid = validateForm(formData)
 
-    console.log('isValid: ', isValid)
     if (isValid) {
       const newUser = {
         firstName: e.target.firstName.value,

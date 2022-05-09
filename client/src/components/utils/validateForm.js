@@ -2,8 +2,6 @@ import { validateEmail } from './validateEmail';
 
 export function validateForm(formData) {
   const { email, password, confirmPassword, firstName, lastName, displayName, icon } = formData
-  
-  console.log(formData)
 
   if (password !== confirmPassword) {
     alert('Passwords do not match')

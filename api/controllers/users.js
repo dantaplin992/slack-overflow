@@ -6,29 +6,18 @@ const UserController = {
     
     const newUser = req.body
 
-    const newUserDoc = User.create(newUser)
-
-    res.json({
+    User.findOne({ email: newUser.email }, (err, existingUser) => {
+      if (err) { throw err }
+      if (existingUser) {
+        res.json( { message: 'userExists' } )
+      } else {
+        const newUserDoc = User.create(newUser)
+        res.json({
         message: "signedUp",
+        })
+      }
     })
-  },
-
-CheckEmail: (req, res, next) => {
-  console.log('reached the server: ', req.body)
-  const email = req.body.email
-  User.findOne({ email: email }).then((user) => {
-    if(!user){
-      res.json({
-        message: "userDoesNotExist"
-      })
-    } else {
-      res.json({
-        message: "userExists"
-      })
-    }
-  })
-},
-
+  }
 }
      
 module.exports = UserController
