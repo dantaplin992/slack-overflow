@@ -8,7 +8,7 @@ class Message extends React.Component {
     return (
       <div className='Message'>
         <div>
-          {msg}
+          {msg} 
         </div>
         <div>
           {time}
