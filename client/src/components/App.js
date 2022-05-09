@@ -38,7 +38,8 @@ class App extends React.Component {
                     lastName: data.lastName,
                     email: data.email,
                     icon: data.icon,
-                    displayName: data.displayName
+                    displayName: data.displayName,
+                    id: data._id
                   }
 
         this.setState({ loggedIn: true, currentUser: setUser })
