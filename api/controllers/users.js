@@ -11,7 +11,24 @@ const UserController = {
     res.json({
         message: "signedUp",
     })
-  }
+  },
+
+CheckEmail: (req, res, next) => {
+  console.log('reached the server: ', req.body)
+  const email = req.body.email
+  User.findOne({ email: email }).then((user) => {
+    if(!user){
+      res.json({
+        message: "userDoesNotExist"
+      })
+    } else {
+      res.json({
+        message: "userExists"
+      })
+    }
+  })
+},
+
 }
      
 module.exports = UserController

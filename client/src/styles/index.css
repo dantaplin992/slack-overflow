@@ -76,6 +76,7 @@
     h-screen w-full
     overflow-auto
     text-sm text-left
+    text-gray-300
   }
 
 }

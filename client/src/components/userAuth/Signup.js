@@ -1,18 +1,35 @@
-import React from 'react';
+import React from 'react'
+import { validateForm } from '../utils/validateForm'
 
 function Signup(props) {
-  
+
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const newUser = {
-      firstName: e.target.firstName.value,
-      lastName: e.target.lastName.value,
-      email: e.target.email.value,
-      password: e.target.password.value,
-      icon: e.target.icon.value,
-      displayName: e.target.displayName.value
+    e.preventDefault()
+    const email = e.target.elements.email.value
+    const password = e.target.elements.password.value
+    const confirmPassword = e.target.elements.confirmPassword.value
+    const firstName = e.target.elements.firstName.value
+    const lastName = e.target.elements.lastName.value
+    const displayName = e.target.elements.displayName.value
+    const icon = e.target.elements.icon.value
+    const formData = { email, password, confirmPassword, firstName, lastName, displayName, icon }
+
+    const isValid = validateForm(formData)
+
+    console.log('isValid: ', isValid)
+    if (isValid) {
+      const newUser = {
+        firstName: e.target.firstName.value,
+        lastName: e.target.lastName.value,
+        email: e.target.email.value,
+        password: e.target.password.value,
+        icon: e.target.icon.value,
+        displayName: e.target.displayName.value
+      }
+    props.signUpFunction(newUser)
+    } else {
+      return
     }
-   props.signUpFunction(newUser)
   }
 
   return (
@@ -45,7 +62,7 @@ function Signup(props) {
           Email
         </label>
         <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-        type='text'
+        type='email'
         name="email"
         placeholder="email"
         autoComplete='email' />
@@ -59,6 +76,17 @@ function Signup(props) {
           type='password'
            name="password"
            placeholder='password'
+           autoComplete='password' />
+      </div>
+
+     <div className="mb-6">
+       <label className="block text-gray-700 text-sm font-bold mb-2 text-left" htmlFor="confirmPassword">
+          Confirm Password
+        </label>
+        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+          type='password'
+           name="confirmPassword"
+           placeholder='Confirm password'
            autoComplete='password' />
       </div>
 
