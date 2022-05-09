@@ -1,14 +1,11 @@
 
-const joinRoom = (socket, roomName) => {
-  socket.join(roomName)
-}
 
 function chat(io) {
   io.on('connection', (socket) => {
     let currentRoom = 'General'
     console.log(`socket connected with id ${socket.id}`)
     socket.emit('handshake', 'hello client')
-    joinRoom(socket, currentRoom)
+    socket.join(currentRoom)
 
     // Sending & receiving messages in MVP API-only app
 
@@ -23,8 +20,10 @@ function chat(io) {
     })
 
     socket.on('joinNewRoom', (newRoomName) => {
+      console.log(`leaving room: ${currentRoom}`)
+      socket.leave(currentRoom)
       console.log(`joining room: ${newRoomName}`)
-      joinRoom(socket, newRoomName)
+      socket.join(newRoomName)
       currentRoom = newRoomName
     })
 

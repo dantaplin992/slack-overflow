@@ -85,23 +85,26 @@ class Feed extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    const { firstName, lastName, displayName, icon } = this.props.currentUser
-    const newTimeStamp = new Date
-    const newMessage = { 
-      message: this.state.newMessageInput, 
-      roomName: this.props.currentRoom, 
-      timeStamp: newTimeStamp, 
-      authorId: this.props.currentUser.id 
-    }
-    const socketMessage = { 
-      message: this.state.newMessageInput, 
-      roomName: this.props.currentRoom, 
-      timeStamp: newTimeStamp, 
-      authorId: { displayName: displayName, firstName: firstName, lastName: lastName, icon: icon } 
-    }
+    if (this.state.newMessageInput != '') {
+      const { firstName, lastName, displayName, icon } = this.props.currentUser
+      const newTimeStamp = new Date
+      const newMessage = { 
+        message: this.state.newMessageInput, 
+        roomName: this.props.currentRoom, 
+        timeStamp: newTimeStamp, 
+        authorId: this.props.currentUser.id 
+      }
+      const socketMessage = { 
+        message: this.state.newMessageInput, 
+        roomName: this.props.currentRoom, 
+        timeStamp: newTimeStamp, 
+        authorId: { displayName: displayName, firstName: firstName, lastName: lastName, icon: icon } 
+      }
 
-    this.passMessageToServer(newMessage)
-    this.socket.emit('newMessage', socketMessage)
+      this.passMessageToServer(newMessage)
+      this.socket.emit('newMessage', socketMessage)
+      this.setState({ newMessageInput: '' })
+    }
   }
 
   passMessageToServer(newMessage) {
@@ -152,7 +155,8 @@ class Feed extends React.Component {
               className='bottom-bar-input' 
               type="text" 
               placeholder="Enter message..." 
-              onChange={this.handleChange} />
+              onChange={this.handleChange}
+              value={this.state.newMessageInput} />
             <button
               type="submit"
               className='send-button' 
@@ -194,6 +198,8 @@ class Feed extends React.Component {
 
   componentDidUpdate(prevProps) {
     if(this.props.currentRoom != prevProps.currentRoom) {
+      console.log(`leaving room: ${prevProps.currentRoom}`)
+      console.log(`joining room: ${this.props.currentRoom}`)
       this.socket.emit('joinNewRoom', this.props.currentRoom)
       this.getRoomMessages()
     }
