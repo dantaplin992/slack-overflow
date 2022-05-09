@@ -20,6 +20,7 @@ class Chat extends React.Component {
 
   render = () => {
     const { currentUser } = this.props.currentState
+    const { logoutFunction } = this.props
   
     return (
       <div className='Chat'>
@@ -28,6 +29,12 @@ class Chat extends React.Component {
         <Feed currentRoom={this.state.currentRoom}/>
       </div>
     )
+  }
+
+  componentDidMount() {
+    if(!this.socket) {
+      this.socketConnect()
+    }
   }
 }
 

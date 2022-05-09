@@ -13,6 +13,10 @@ class Login extends React.Component {
       e.preventDefault()
       this.props.loginFunction(email, password)
     }
+
+    const signUp = () => {
+      this.props.toggleLogin()
+    }
       
       return (
         <div className="flex flex-col justify-center items-center h-screen bg-slate-100">
@@ -44,7 +48,8 @@ class Login extends React.Component {
            </div>
         <div className="mt-5">
           <p className="text-center text-gray-500 text-xs">Don't have an account?</p>
-          <button className="text-center text-gray-500 hover:text-purple-600 text-xs">Sign Up</button>
+          <button className="text-center text-gray-500 hover:text-purple-600 text-xs"
+                  onClick={signUp}>Sign Up</button>
         </div>
        </form>
     </div>

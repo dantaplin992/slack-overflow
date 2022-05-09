@@ -50,13 +50,38 @@ class App extends React.Component {
   logout = () => {
     this.setState(
       {
-        loggedIn: false
+        loggedIn: false,
+        currentUser: {}
       }
+      )
+    localStorage.removeItem('currentUser')
+  }
+
+  signUp = (newUser) => {
+    fetch('http://localhost:5000/users/new', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newUser),
+    }).then(response => response.json())
+    .then(data => {
+      if (data.message === 'signedUp') {
+        this.setState({ loggedIn: true, currentUser: newUser })
+        localStorage.setItem('currentUser', JSON.stringify(newUser))
+      } else {
+        alert('Email already exists')
+        return
+      }
+    }
     )
   }
   
   render = () => { 
-    const content = this.state.loggedIn ?  <Chat currentState={this.state}/> : <UserAuth loginFunction={this.login}/>
+    const content = this.state.loggedIn ?
+                      <Chat currentState={this.state} logoutFunction={this.logout} />
+                      :
+                      <UserAuth loginFunction={this.login} signUpFunction={this.signUp} />
     return (
       <div className='App'>
         {content}
