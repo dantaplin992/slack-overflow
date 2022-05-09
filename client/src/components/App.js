@@ -39,7 +39,7 @@ class App extends React.Component {
                     email: data.email,
                     icon: data.icon,
                     displayName: data.displayName,
-                    id: data._id
+                    id: data.id
                   }
 
         this.setState({ loggedIn: true, currentUser: setUser })

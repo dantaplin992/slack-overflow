@@ -1,7 +1,6 @@
 import React from 'react'
 
 function Banner(props) {
-  console.log('banner props: ', props.currentUser)
 
   const { firstName, lastName, email, icon, displayName } = props.currentUser
 
