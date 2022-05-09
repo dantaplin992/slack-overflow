@@ -142,7 +142,6 @@ class Feed extends React.Component {
     for (let i = 0; i < this.state.messages.length; i++) {
       messageComponents.push(<Message key={i} authorId={this.state.messages[i].authorId} text={this.state.messages[i].message} timeStamp={this.state.messages[i].timeStamp} />)
     }
-    console.log("all messages result client side: ", messageComponents)
 
     return (
       <div className='Feed'>
