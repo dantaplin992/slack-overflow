@@ -54,14 +54,15 @@ class Feed extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    const newMessage = { message: this.state.newMessageInput}
+    const newTimeStamp = new Date
+    const newMessage = { message: this.state.newMessageInput, timeStamp: newTimeStamp }
 
     this.passMessageToServer(newMessage)
     this.socket.emit('newMessage', newMessage)
   }
 
   passMessageToServer(newMessage) {
-    console.log("Message: " + newMessage.message)
+    console.log("Message: " + newMessage.message )
     const url = `http://localhost:5000/messages/new`
     fetch(url, {
       method: 'POST',
@@ -79,14 +80,13 @@ class Feed extends React.Component {
     const newMessages = []
     for (let i = 0; i < currentMessages.length; i++) newMessages.push(currentMessages[i])
     newMessages.push(messageObj)
-    //console.log(newMessages)
-    this.setState({ messages: newMessages})
+    this.setState({ messages: newMessages })
   }
 
   render() {
     const messageComponents = []
     for (let i = 0; i < this.state.messages.length; i++) {
-      messageComponents.push(<Message text={this.state.messages[i].message} key={i} />)
+      messageComponents.push(<Message key={i} text={this.state.messages[i].message} timeStamp={this.state.messages[i].timeStamp} />)
     }
     return (
       <div className='Feed'>
