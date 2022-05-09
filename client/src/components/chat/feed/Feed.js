@@ -90,6 +90,7 @@ class Feed extends React.Component {
 
     this.passMessageToServer(newMessage)
     this.socket.emit('newMessage', newMessage)
+    this.setState({ newMessageInput: '' })
   }
 
   passMessageToServer(newMessage) {
@@ -138,7 +139,8 @@ class Feed extends React.Component {
               className='bottom-bar-input' 
               type="text" 
               placeholder="Enter message..." 
-              onChange={this.handleChange} />
+              onChange={this.handleChange}
+              value={this.state.newMessageInput} />
             <button
               type="submit"
               className='send-button' 
