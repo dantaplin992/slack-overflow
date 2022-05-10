@@ -14,9 +14,9 @@
 
   .sidebar-tooltip {
     @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md
-    text-white bg-gray-800
+    text-gray-800 bg-gray-800
     text-xs font-bold
-    transition-all duration-100 scale-0 origin-left
+    transition-all duration-300 scale-0 origin-left ease-in-out
   }
 
   .sidebar-hr {
@@ -102,9 +102,19 @@
     pr-4 pl-4 h-10
     text-gray-500 text-sm
     hover:bg-purple-500 hover:text-white
-    rounded-xl hover:rounded-none
+    rounded-none
     transition-all duration-300 ease-linear
     
+  }
+
+  .edgeGlow {
+    @apply absolute -inset-1 bg-gradient-to-r from-cyan-600 to-purple-600 rounded-lg
+    blur opacity-75 group-hover:opacity-100 transition duration-1000 animate-tilt
+  }
+
+  .darkButton {
+    @apply relative px-7 py-4 bg-gray-700 rounded-lg leading-none 
+    flex items-center divide-x divide-gray-400
   }
 
 }
@@ -121,4 +131,42 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.banner_dropdown{
+  animation: growDown 300ms ease-in-out forwards;
+  transform-origin: top center;
+}
+
+.banner_dropdownreverse{
+  animation: growUp 300ms ease-in-out forwards;
+  transform-origin: top center;
+}
+
+.banner_dropdownhidden{
+  display: none;
+}
+
+@keyframes growDown {
+  0% {
+    transform: scaleY(0)
+  }
+  80% {
+    transform: scaleY(1.1)
+  }
+  100% {
+    transform: scaleY(1)
+  }
+}
+
+@keyframes growUp {
+  100% {
+    transform: scaleY(0)
+  }
+  80% {
+    transform: scaleY(1.1)
+  }
+  0% {
+    transform: scaleY(1)
+  }
 }
