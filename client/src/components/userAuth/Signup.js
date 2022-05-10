@@ -32,21 +32,23 @@ function Signup(props) {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-slate-100">
-    <form className="bg-white shadow-md rounded px-8 pt-6 pb-5 mb-4" onSubmit={handleSubmit}>
-      <div className="mb-6">
-       <label className="block text-gray-700 text-sm font-bold mb-2 text-left" htmlFor="firstName">
+    <div className="flex flex-col justify-center items-center h-screen bg-gray-800">
+    <form className="bg-gray-700 shadow-md rounded px-8 pt-6 pb-5 mb-4" onSubmit={handleSubmit}>
+      <div className="flex -mx-3">
+       <div className="w-1/2 px-3 mb-5">
+       <label className="block text-gray-400 text-sm font-bold mb-2 text-left" htmlFor="firstName">
           First Name
         </label>
-        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline" 
           type='text'
            name="firstName"
            placeholder='First Name'
            autoComplete='First Name' />
-      </div>
+        </div>
+      
 
-      <div className="mb-6">
-       <label className="block text-gray-700 text-sm font-bold mb-2 text-left" htmlFor="lastName">
+      <div class="w-1/2 px-3 mb-5">
+       <label className="block text-gray-400 text-sm font-bold mb-2 text-left" htmlFor="lastName">
           Last Name
         </label>
         <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
@@ -55,31 +57,33 @@ function Signup(props) {
            placeholder='Last Name'
            autoComplete='Last Name' />
       </div>
+      </div>
 
       <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2 text-left" htmlFor="email">
+        <label className="block text-gray-400 text-sm font-bold mb-2 text-left" htmlFor="email">
           Email
         </label>
         <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
         type='email'
         name="email"
-        placeholder="email"
+        placeholder="Email"
         autoComplete='email' />
       </div>
 
-     <div className="mb-6">
-       <label className="block text-gray-700 text-sm font-bold mb-2 text-left" htmlFor="password">
+     <div className="flex -mx-3">
+     <div class="w-1/2 px-3 mb-5">
+       <label className="block text-gray-400 text-sm font-bold mb-2 text-left" htmlFor="password">
           Password
         </label>
         <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
           type='password'
            name="password"
-           placeholder='password'
+           placeholder='Password'
            autoComplete='password' />
       </div>
 
-     <div className="mb-6">
-       <label className="block text-gray-700 text-sm font-bold mb-2 text-left" htmlFor="confirmPassword">
+      <div class="w-1/2 px-3 mb-5">
+       <label className="block text-gray-400 text-sm font-bold mb-2 text-left" htmlFor="confirmPassword">
           Confirm Password
         </label>
         <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
@@ -88,10 +92,11 @@ function Signup(props) {
            placeholder='Confirm password'
            autoComplete='password' />
       </div>
+      </div>
 
 
       <div className="mb-6">
-        <label className="block text-gray-700 text-sm font-bold mb-2 text-left" htmlFor="displayName">
+        <label className="block text-gray-400 text-sm font-bold mb-2 text-left" htmlFor="displayName">
           Display Name
         </label>
         <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -102,10 +107,10 @@ function Signup(props) {
       </div>
 
       <div className="mb-6">
-        <label className="block text-gray-700 text-sm font-bold mb-2 text-left" htmlFor="icon">
+        <label className="block text-gray-400 text-sm font-bold mb-2 text-left" htmlFor="icon">
           Icon Url
         </label>
-        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
           type='text'
           name="icon"
           placeholder='Icon Url'
@@ -114,9 +119,14 @@ function Signup(props) {
 
 
        <div className="flex justify-center">
-        <input className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+         <div className="relative group">
+           <div className="edgeGlow"></div>
+        <input className="relative bg-gray-600 group-hover:text-white text-gray-500 
+                          transition duration-1000 font-bold py-2 px-4 rounded-lg 
+                          focus:outline-none focus:shadow-outline cursor-pointer"
           type="submit"
           value="Sign Up" />
+       </div>
        </div>
    </form>
 </div>
