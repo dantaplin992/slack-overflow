@@ -1,4 +1,5 @@
 import React from 'react'
+import EditProfile from './EditProfile'
 
 function Banner(props) {
 
@@ -16,12 +17,11 @@ function Banner(props) {
        {firstName} {lastName}
        </button>
        <div className=" bg-white flex flex-col mt-6 mr-2">
-         <a href="">Edit</a>
-         <a href="">Log Out</a>
+         <EditProfile currentUser={props.currentUser} />
          {<button onClick={logout}>Logout</button>}
        </div>
       </div>
-      </div> 
+      </div>
   )
 }
 
