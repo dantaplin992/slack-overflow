@@ -16,14 +16,23 @@ const UserController = {
         if (existingUser) {
           res.json( { message: 'userExists' } )
         } else {
-          const newUserDoc = User.create(newUser)
+          const newUserDoc = User.create(newUser).then(newUser => {
+          console.log('newUser: ', newUser)
           res.json({
             message: "signedUp",
+            firstName: `${newUser.firstName}`,
+            lastName: `${newUser.lastName}`,
+            email: `${newUser.email}`,
+            icon: `${newUser.icon}`,
+            displayName: `${newUser.displayName}`,
+            id: `${newUser._id}`,
+          })
           })
         }
       })
     })
   }
 }
+          
      
 module.exports = UserController

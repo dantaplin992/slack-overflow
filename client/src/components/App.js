@@ -68,8 +68,7 @@ class App extends React.Component {
     }).then(response => response.json())
     .then(data => {
       if (data.message === 'signedUp') {
-        this.setState({ loggedIn: true, currentUser: newUser })
-        localStorage.setItem('currentUser', JSON.stringify(newUser))
+        this.login(newUser.email, newUser.password)
       } else {
         alert('Email already exists')
         return
