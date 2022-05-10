@@ -1,6 +1,7 @@
 import React from 'react'
 import DropdownMenu from './DropdownMenu'
 
+
 function Banner(props) {
   const [showDropdown, setShowDropdown] = React.useState(false)
   const [animationClass, setAnimationClass] = React.useState("banner_dropdownhidden")

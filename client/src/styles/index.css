@@ -13,7 +13,7 @@
   }
 
   .sidebar-tooltip {
-    @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md
+    @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-lg
     text-gray-800 bg-gray-800
     text-xs font-bold
     transition-all duration-300 scale-0 origin-left ease-in-out
@@ -136,11 +136,12 @@
     bg-transparent
     mt-1 h-4
     font-bold
+    text-gray-200
   }
 
   .chat-message {
     @apply relative 
-    mt-2
+    mt-2 mb-1 pr-2
     bg-transparent
     h-auto
   }
@@ -148,6 +149,7 @@
   .chat-timeSince {
     @apply font-light
     ml-2 text-xs
+    text-gray-400
   }
 
 }
@@ -208,8 +210,9 @@ code {
 
 ::-webkit-scrollbar {
   background-color: transparent;
+  color:transparent
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-500 dark:bg-green-400;
+  @apply bg-transparent dark:bg-purple-400;
 }

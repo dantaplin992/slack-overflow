@@ -22,6 +22,9 @@ class Login extends React.Component {
         <div className="flex flex-col justify-center items-center h-screen bg-gray-900">
         <form className="bg-gray-800 shadow-md rounded px-8 pt-6 pb-5 mb-4" onSubmit={handleSubmit}>
           <div className="mb-4">
+            <img className="h-20 w-20 mx-auto" src="https://media3.giphy.com/media/3izWMKzrlekRI7BFkd/giphy.gif?cid=790b7611010a6cf13d71373a144a33d1f46592a8b84529b6&rid=giphy.gif&ct=s"/>
+          </div>
+          <div className="mb-4">
             <label className="block text-gray-400 text-sm font-bold mb-2 text-left" htmlFor="email">
               Email
             </label>
