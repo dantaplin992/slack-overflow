@@ -89,7 +89,9 @@
   }
 
   .Banner {
-    @apply flex flex-row-reverse
+    @apply flex flex-row
+    justify-between
+    ml-16
     fixed left-0 right-0 top-0
     shadow-lg
     bg-gray-800
@@ -104,7 +106,10 @@
     hover:bg-purple-500 hover:text-white
     rounded-xl hover:rounded-none
     transition-all duration-300 ease-linear
-    
+  }
+
+  .bannerRoom {
+    @apply text-gray-400
   }
 
 }

@@ -14,7 +14,7 @@ const SideBar = ({ changeRoom }) => {
         <SideBarIcon icon={<DiJsBadge size="24" />} name="JavaScript" id="Javascript" roomChange={changeRoom} />
         <SideBarIcon icon={<DiReact size="28" />} name="React" id="React" roomChange={changeRoom} />
         <Divider />
-        <SideBarIcon icon={<DiCss3 size="24" />} name="React" id="React" roomChange={changeRoom} />
+        <SideBarIcon icon={<DiCss3 size="24" />} name="CSS" id="CSS" roomChange={changeRoom} />
         <SideBarIcon icon={<DiCssdeck size="24" />} name="CSS Deck" id="CSS-Deck" roomChange={changeRoom} />
         <SideBarIcon icon={<DiCssTricks size="24" />} name="CSS Tricks" id="CSS-Tricks" roomChange={changeRoom} />
     </div>

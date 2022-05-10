@@ -24,7 +24,7 @@ class Chat extends React.Component {
   
     return (
       <div className='Chat'>
-        <Banner currentUser={currentUser} logoutFunction={logoutFunction}/>
+        <Banner currentUser={currentUser} logoutFunction={logoutFunction} currentRoom={this.state.currentRoom}/>
         <SideBar changeRoom={this.changeRoom}/>
         <Feed currentRoom={this.state.currentRoom} currentUser={currentUser}/>
       </div>
