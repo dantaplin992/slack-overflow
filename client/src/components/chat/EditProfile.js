@@ -24,9 +24,9 @@ function EditProfile({ currentUser, toggleEditProfileModal }) {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-slate-500 text-lg leading-relaxed">
+                  <div className="my-4 text-slate-500 text-lg leading-relaxed">
                     A form will be here
-                  </p>
+                  </div>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">

@@ -4,8 +4,14 @@ function DropdownMenu({ currentUser, logoutFunction, animationClass, toggleEditP
 
   return(
     <div className={`${animationClass}`}>
-    <div className=" bg-gray-800 text-gray-400 text-sm flex flex-col mt-0 mr-0">
+    <div className="bannerDropdownList">
          <ul>
+           <li>
+             {firstName} {lastName}
+           </li>
+           <li>
+              {email}
+           </li>
            <li className='bannerProfile'>
              {<button onClick={toggleEditProfileModal}>Edit Profile</button>}
            </li>
