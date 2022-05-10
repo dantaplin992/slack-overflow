@@ -67,6 +67,15 @@
     rounded-md
     transition-all duration-300 ease-linear
   }
+  
+  .bottom-bar-emoji {
+    @apply relative flex items-center justify-center
+    h-7 w-7 mt-0 mb-2 ml-0 mr-2
+    bg-gray-800 text-gray-500
+    hover:bg-purple-500 hover:text-yellow-300 hover:rotate-12
+    rounded-3xl
+    transition-all duration-300 ease-linear
+  }
 
   .Feed {
     @apply flex flex-col items-center
@@ -74,8 +83,27 @@
     bg-gray-900
     m-0
     h-screen w-full
-    overflow-auto
+    overflow-y-auto
     text-sm text-left
+  }
+
+  .Banner {
+    @apply flex flex-row-reverse
+    fixed left-0 right-0 top-0
+    shadow-lg
+    bg-gray-800
+    h-10 
+  }
+
+  .bannerProfile {
+    @apply relative flex flex-row
+    items-center justify-center
+    pr-4 pl-4 h-10
+    text-gray-500 text-sm
+    hover:bg-purple-500 hover:text-white
+    rounded-xl hover:rounded-none
+    transition-all duration-300 ease-linear
+    
   }
 
 }
