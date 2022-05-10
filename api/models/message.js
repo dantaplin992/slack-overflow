@@ -6,13 +6,7 @@ const MessageSchema = new mongoose.Schema({
         ref: "User"
     },
     message: String,
-    reactions: [{
-        emoji: String,
-        user: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-        }
-    }],
+    reactions: [],
     isReplyTo: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Message"

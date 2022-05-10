@@ -1,19 +1,21 @@
 import React from 'react'
 import Moment from 'react-moment'
 import 'moment-timezone'
+import equal from 'fast-deep-equal'
 
 class Message extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      reactions: []
+      reactions: this.props.reactions
     }
   }
 
   alreadyReacted() {
     let reacted = false
     for (let i in this.state.reactions) {
-      if (this.state.reactions[i].userId === this.props.currentUser.id) reacted = true
+      console.log(this.props.currentUser.id)
+      if (this.state.reactions[i].userId == this.props.currentUser.id) reacted = true
     }
     return reacted
   }
@@ -38,7 +40,7 @@ class Message extends React.Component {
     for (let i in this.state.reactions) {
       newReactions.push(this.state.reactions[i])
     }
-
+    console.log(this.alreadyReacted())
     if (this.alreadyReacted()) {
       // remove reaction
       newReactions = this.updateReaction(newReactions, newEmoji)
@@ -46,7 +48,7 @@ class Message extends React.Component {
       newReactions.push(newReaction)
     }
     this.setState({ reactions: newReactions })
-    this.props.emitReaction()
+    this.props.emitReaction({ messageId: this.props.messageId, newReactions: newReactions })
   }
 
   reactionElements() {
@@ -84,6 +86,12 @@ class Message extends React.Component {
         </div>
       </div>
     )
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!equal(prevProps.reactions, this.props.reactions)) {
+      this.setState({ reactions: this.props.reactions })
+    }
   }
 
 }

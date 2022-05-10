@@ -1,11 +1,9 @@
 import React from 'react'
 import Message from './Message'
-import MessageInput from './MessageInput'
 import io from 'socket.io-client'
 import { IoSend } from "react-icons/io5";
 import { BsImage, BsFillEmojiDizzyFill, BsCodeSlash } from "react-icons/bs";
 import { AiOutlineFileGif } from "react-icons/ai";
-
 
 class Feed extends React.Component {
   constructor(props) {
@@ -60,6 +58,10 @@ class Feed extends React.Component {
     this.socket.on('displayNewMessage', (params) => {
       this.displayNewMessage(params)
     })
+
+    this.socket.on('displayNewReaction', (params) => {
+      this.getRoomMessages()
+    })
   }
 
   handleChange(event) {
@@ -105,8 +107,8 @@ class Feed extends React.Component {
     })
   }
 
-  emitReaction() {
-    this.socket.emit('newReaction', 'Reacting to a post')
+  emitReaction(params) {
+    this.socket.emit('newReaction', params)
   }
 
   displayNewMessage(messageObj) {
@@ -117,14 +119,6 @@ class Feed extends React.Component {
     this.setState({ messages: newMessages })
   }
 
-  filterMessagesByRoom() {
-    const allMessages = this.state.messages
-    const filteredMessages = this.state.messages.filter(obj => {
-      return obj.roomName === this.props.currentRoom
-    })
-    return filteredMessages
-  }
-
   render() {
     const messageComponents = []
     for (let i = 0; i < this.state.messages.length; i++) {
@@ -133,6 +127,8 @@ class Feed extends React.Component {
                               authorId={this.state.messages[i].authorId} 
                               text={this.state.messages[i].message} 
                               timeStamp={this.state.messages[i].timeStamp} 
+                              reactions={this.state.messages[i].reactions}
+                              messageId={this.state.messages[i]._id}
                               currentUser={this.props.currentUser}
                               emitReaction={this.emitReaction}
                               />)
