@@ -19,8 +19,8 @@ class Login extends React.Component {
     }
       
       return (
-        <div className="flex flex-col justify-center items-center h-screen bg-gray-800">
-        <form className="bg-gray-700 shadow-md rounded px-8 pt-6 pb-5 mb-4" onSubmit={handleSubmit}>
+        <div className="flex flex-col justify-center items-center h-screen bg-gray-900">
+        <form className="bg-gray-800 shadow-md rounded px-8 pt-6 pb-5 mb-4" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-400 text-sm font-bold mb-2 text-left" htmlFor="email">
               Email
@@ -44,15 +44,15 @@ class Login extends React.Component {
            <div className="flex justify-center">
              <div className= "relative group">
                <div className= "edgeGlow"></div>
-            <input className="relative bg-gray-600 group-hover:text-white text-gray-500  transition duration-1000 font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline cursor-pointer"
+            <input className="relative bg-gray-700 group-hover:text-white text-gray-500  transition duration-1000 font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline cursor-pointer"
               type="submit"
               value="Login" />
            
            </div>
            </div>
         <div className="mt-5">
-          <p className="text-center text-gray-400 text-xs">Don't have an account?</p>
-          <button className="text-center text-gray-400 hover:text-purple-600 transition duration-1000 text-xs"
+          <p className="text-center text-gray-500 text-xs">Don't have an account?</p>
+          <button className="text-center text-gray-500 hover:text-purple-600 transition duration-1000 text-xs"
                   onClick={signUp}>Sign Up</button>
         </div>
        </form>

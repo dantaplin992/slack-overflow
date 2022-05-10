@@ -78,8 +78,8 @@
   }
 
   .Feed {
-    @apply flex flex-col items-center
-    mt-0 ml-0 mx-auto px-0 pb-12
+    @apply flex flex-col items-start
+    pt-6 ml-0 mx-auto px-0 pb-28
     bg-gray-900
     m-0
     h-screen w-full
@@ -108,13 +108,46 @@
   }
 
   .edgeGlow {
-    @apply absolute -inset-1 bg-gradient-to-r from-cyan-600 to-purple-600 rounded-lg
-    blur opacity-75 group-hover:opacity-100 transition duration-1000 animate-tilt
+    @apply absolute -inset-0.5 bg-gradient-to-r from-cyan-600 to-purple-600 rounded-lg
+    blur opacity-60 group-hover:opacity-100 transition duration-1000 animate-tilt
   }
 
   .darkButton {
     @apply relative px-7 py-4 bg-gray-700 rounded-lg leading-none 
     flex items-center divide-x divide-gray-400
+  }
+
+  .chat-container {
+    @apply relative flex flex-row
+    ml-20 w-auto
+   
+    bg-transparent text-sm
+    h-auto
+  }
+
+  .chat-profile-container {
+    @apply relative flex flex-none
+    w-12 h-auto 
+    bg-transparent
+  }
+
+  .chat-user {
+    @apply relative
+    bg-transparent
+    mt-1 h-4
+    font-bold
+  }
+
+  .chat-message {
+    @apply relative 
+    mt-2
+    bg-transparent
+    h-auto
+  }
+
+  .chat-timeSince {
+    @apply font-light
+    ml-2 text-xs
   }
 
 }
@@ -169,4 +202,14 @@ code {
   0% {
     transform: scaleY(1)
   }
+}
+
+@tailwind utilities;
+
+::-webkit-scrollbar {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-500 dark:bg-green-400;
 }

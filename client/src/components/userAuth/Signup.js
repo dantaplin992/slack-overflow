@@ -32,8 +32,8 @@ function Signup(props) {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gray-800">
-    <form className="bg-gray-700 shadow-md rounded px-8 pt-6 pb-5 mb-4" onSubmit={handleSubmit}>
+    <div className="flex flex-col justify-center items-center h-screen bg-gray-900">
+    <form className="bg-gray-800 shadow-md rounded px-8 pt-6 pb-5 mb-4" onSubmit={handleSubmit}>
       <div className="flex -mx-3">
        <div className="w-1/2 px-3 mb-5">
        <label className="block text-gray-400 text-sm font-bold mb-2 text-left" htmlFor="firstName">
