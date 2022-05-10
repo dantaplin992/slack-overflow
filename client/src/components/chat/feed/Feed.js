@@ -122,16 +122,18 @@ class Feed extends React.Component {
   render() {
     const messageComponents = []
     for (let i = 0; i < this.state.messages.length; i++) {
-      messageComponents.push(<Message 
-                              key={i} 
-                              authorId={this.state.messages[i].authorId} 
-                              text={this.state.messages[i].message} 
-                              timeStamp={this.state.messages[i].timeStamp} 
-                              reactions={this.state.messages[i].reactions}
-                              messageId={this.state.messages[i]._id}
-                              currentUser={this.props.currentUser}
-                              emitReaction={this.emitReaction}
-                              />)
+      messageComponents.push(
+        <Message 
+          key={i} 
+          authorId={this.state.messages[i].authorId} 
+          text={this.state.messages[i].message} 
+          timeStamp={this.state.messages[i].timeStamp} 
+          reactions={this.state.messages[i].reactions}
+          messageId={this.state.messages[i]._id}
+          currentUser={this.props.currentUser}
+          emitReaction={this.emitReaction}
+        />
+      )
     }
 
     return (

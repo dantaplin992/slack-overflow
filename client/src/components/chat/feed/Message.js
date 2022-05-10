@@ -14,7 +14,6 @@ class Message extends React.Component {
   alreadyReacted() {
     let reacted = false
     for (let i in this.state.reactions) {
-      console.log(this.props.currentUser.id)
       if (this.state.reactions[i].userId == this.props.currentUser.id) reacted = true
     }
     return reacted
@@ -40,7 +39,6 @@ class Message extends React.Component {
     for (let i in this.state.reactions) {
       newReactions.push(this.state.reactions[i])
     }
-    console.log(this.alreadyReacted())
     if (this.alreadyReacted()) {
       // remove reaction
       newReactions = this.updateReaction(newReactions, newEmoji)
@@ -52,8 +50,22 @@ class Message extends React.Component {
   }
 
   reactionElements() {
+    let uniqueEmojis = []
+    let uniqueEmojiCount = []
     let elements = []
-    for (let i in this.state.reactions)  elements.push(<span>{this.state.reactions[i].emoji}</span>)
+    for (let i in this.state.reactions) {
+      if (uniqueEmojis.includes(this.state.reactions[i].emoji)) {
+        let countIndex = uniqueEmojis.indexOf(this.state.reactions[i].emoji)
+        uniqueEmojiCount[countIndex] += 1
+      } else {
+        uniqueEmojis.push(this.state.reactions[i].emoji)
+        uniqueEmojiCount.push(1)
+      }
+    }
+    for (let i in uniqueEmojis) {
+      let emojiDisplayNumber = uniqueEmojiCount[i] > 1 ? uniqueEmojiCount[i] : ''
+      elements.push(<span><span>{uniqueEmojis[i]}</span><span>{emojiDisplayNumber}</span></span>)
+    }
     return elements
   }
 

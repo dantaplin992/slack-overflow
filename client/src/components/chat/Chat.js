@@ -14,7 +14,6 @@ class Chat extends React.Component {
   }
 
   changeRoom(newRoom) {
-    console.log(newRoom)
     this.setState({ currentRoom: newRoom })
   }
 
