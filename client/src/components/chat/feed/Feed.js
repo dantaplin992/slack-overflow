@@ -3,7 +3,8 @@ import Message from './Message'
 import MessageInput from './MessageInput'
 import io from 'socket.io-client'
 import { IoSend } from "react-icons/io5";
-import { BsImage } from "react-icons/bs";
+import { BsImage, BsFillEmojiDizzyFill, BsCodeSlash } from "react-icons/bs";
+import { AiOutlineFileGif } from "react-icons/ai";
 
 
 class Feed extends React.Component {
@@ -116,17 +117,17 @@ class Feed extends React.Component {
             <button
               type="submit"
               className='bottom-bar-icon'>
-              <BsImage size="20" />
+              <AiOutlineFileGif size="20" />
+            </button>
+            <button
+              type="submit"
+              className='bottom-bar-emoji'>
+              <BsFillEmojiDizzyFill size="20"/>
             </button>
             <button
               type="submit"
               className='bottom-bar-icon'>
-              <BsImage size="20" />
-            </button>
-            <button
-              type="submit"
-              className='bottom-bar-icon'>
-              <BsImage size="20" />
+              <BsCodeSlash size="20" />
             </button>
             </div>
           </div>
