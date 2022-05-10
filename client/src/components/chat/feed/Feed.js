@@ -12,8 +12,8 @@ class Feed extends React.Component {
     super(props)
     this.state = {
       messages: [],
-      renderedHistoric: false,
       newMessageInput: '',
+      upToDate: false,
     }
     this.socket = null
 
@@ -34,11 +34,39 @@ class Feed extends React.Component {
       that.setState(
         {
           messages: data,
-          renderedHistoric: true
         }
       )
     })
   }
+
+  getRoomMessages() {
+    const that = this
+    const url = `http://localhost:5000/messages/room/${this.props.currentRoom}`
+    fetch(url, {
+      method: "GET",
+      mode: 'cors',
+      credentials: 'include',
+    }
+    ).then(res => res.json()
+    ).then((data) => {
+      that.setState({ messages: data })
+    })
+  }
+
+  setMessagesState(newMessages) {
+    this.setState({ messages: newMessages })
+  }
+
+  objectsAreSame(x, y) {
+    var objectsAreSame = true;
+    for(var propertyName in x) {
+       if(x[propertyName] !== y[propertyName]) {
+          objectsAreSame = false;
+          break;
+       }
+    }
+    return objectsAreSame;
+ }
 
   socketConnect() {
     this.socket = io(`localhost:5000`)
@@ -47,7 +75,7 @@ class Feed extends React.Component {
     })
 
     this.socket.on('displayNewMessage', (params) => {
-      console.log(`displaying new message: ${params}`)
+      console.log(params.timeStamp)
       this.displayNewMessage(params)
     })
   }
@@ -58,14 +86,30 @@ class Feed extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    const newMessage = { message: this.state.newMessageInput}
+    if (this.state.newMessageInput != '') {
+      const { firstName, lastName, displayName, icon } = this.props.currentUser
+      const newTimeStamp = new Date
+      const newMessage = { 
+        message: this.state.newMessageInput, 
+        roomName: this.props.currentRoom, 
+        timeStamp: newTimeStamp, 
+        authorId: this.props.currentUser.id 
+      }
+      const socketMessage = { 
+        message: this.state.newMessageInput, 
+        roomName: this.props.currentRoom, 
+        timeStamp: newTimeStamp, 
+        authorId: { displayName: displayName, firstName: firstName, lastName: lastName, icon: icon } 
+      }
 
-    this.passMessageToServer(newMessage)
-    this.socket.emit('newMessage', newMessage)
+      this.passMessageToServer(newMessage)
+      this.socket.emit('newMessage', socketMessage)
+      this.setState({ newMessageInput: '' })
+    }
   }
 
   passMessageToServer(newMessage) {
-    console.log("Message: " + newMessage.message)
+    console.log("Message: " + newMessage.message )
     const url = `http://localhost:5000/messages/new`
     fetch(url, {
       method: 'POST',
@@ -83,17 +127,27 @@ class Feed extends React.Component {
     const newMessages = []
     for (let i = 0; i < currentMessages.length; i++) newMessages.push(currentMessages[i])
     newMessages.push(messageObj)
-    //console.log(newMessages)
-    this.setState({ messages: newMessages})
+    this.setState({ messages: newMessages })
+  }
+
+  filterMessagesByRoom() {
+    const allMessages = this.state.messages
+    const filteredMessages = this.state.messages.filter(obj => {
+      return obj.roomName === this.props.currentRoom
+    })
+    return filteredMessages
   }
 
   render() {
     const messageComponents = []
     for (let i = 0; i < this.state.messages.length; i++) {
-      messageComponents.push(<Message text={this.state.messages[i].message} key={i} />)
+      messageComponents.push(<Message key={i} authorId={this.state.messages[i].authorId} text={this.state.messages[i].message} timeStamp={this.state.messages[i].timeStamp} />)
     }
+
     return (
       <div className='Feed'>
+        <p>{this.props.currentRoom}</p>
+
         {messageComponents}
         <form>
           <div className='bottom-bar'>
@@ -101,7 +155,8 @@ class Feed extends React.Component {
               className='bottom-bar-input' 
               type="text" 
               placeholder="Enter message..." 
-              onChange={this.handleChange} />
+              onChange={this.handleChange}
+              value={this.state.newMessageInput} />
             <button
               type="submit"
               className='send-button' 
@@ -138,7 +193,16 @@ class Feed extends React.Component {
 
   componentDidMount() {
     if (!this.socket) this.socketConnect()
-    this.getAllMessages()
+    this.getRoomMessages()
+  }
+
+  componentDidUpdate(prevProps) {
+    if(this.props.currentRoom != prevProps.currentRoom) {
+      console.log(`leaving room: ${prevProps.currentRoom}`)
+      console.log(`joining room: ${this.props.currentRoom}`)
+      this.socket.emit('joinNewRoom', this.props.currentRoom)
+      this.getRoomMessages()
+    }
   }
 }
 

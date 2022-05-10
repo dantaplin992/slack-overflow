@@ -85,6 +85,7 @@
     h-screen w-full
     overflow-y-auto
     text-sm text-left
+    text-gray-300
   }
 
   .Banner {
