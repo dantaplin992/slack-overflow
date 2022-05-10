@@ -1,5 +1,35 @@
+import Message from "./feed/Message"
+
 function EditProfile({ currentUser, toggleEditProfileModal }) {
-  const { firstName, lastName, email, icon, displayName } = currentUser
+  const { firstName, lastName, email, icon, displayName, id } = currentUser
+
+  function editProfile(e) {
+    e.preventDefault()
+
+    toggleEditProfileModal()
+
+    const updatedUser = { firstName: e.target.firstName.value,
+                          lastName: e.target.lastName.value,
+                          email: e.target.email.value,
+                          icon: e.target.icon.value,
+                          displayName: e.target.displayName.value,
+                          id: id,
+                          password: e.target.password.value
+                        }
+
+    console.log('updatedUser: ', updatedUser)
+
+    fetch(`http://localhost:5000/users/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedUser),
+    }).then(response => response.json()
+    ).then(data => {
+      alert(data.message)
+    })
+  }
 
   return(
         <><div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -7,7 +37,7 @@ function EditProfile({ currentUser, toggleEditProfileModal }) {
                 <div className="relative p-4 flex-auto">
                   <div className="my-4 text-slate-500 text-lg leading-relaxed">
                     <h2 className="text-center bg-gray-700 pt-3">Edit Profile</h2>
-                  <form className="bg-gray-700 shadow-md rounded px-8 pt-6 pb-5 mb-4" onSubmit={toggleEditProfileModal}>
+                  <form className="bg-gray-700 shadow-md rounded px-8 pt-6 pb-5 mb-4" onSubmit={editProfile}>
       <div className="flex -mx-3">
        <div className="w-1/2 px-3 mb-5">
        <label className="block text-gray-400 text-sm font-bold mb-2 text-left" htmlFor="firstName">
@@ -17,12 +47,12 @@ function EditProfile({ currentUser, toggleEditProfileModal }) {
           type='text'
            name="firstName"
            placeholder={`${firstName}`}
-           value=""
+           defaultValue={`${firstName}`}
            autoComplete='First Name' />
         </div>
       
 
-      <div class="w-1/2 px-3 mb-5">
+      <div className="w-1/2 px-3 mb-5">
        <label className="block text-gray-400 text-sm font-bold mb-2 text-left" htmlFor="lastName">
           Last Name
         </label>
@@ -30,6 +60,7 @@ function EditProfile({ currentUser, toggleEditProfileModal }) {
           type='text'
            name="lastName"
            placeholder={`${lastName}`}
+            defaultValue={`${lastName}`}
            autoComplete='Last Name' />
       </div>
       </div>
@@ -42,11 +73,12 @@ function EditProfile({ currentUser, toggleEditProfileModal }) {
         type='email'
         name="email"
         placeholder={`${email}`}
+        defaultValue={`${email}`}
         autoComplete='email' />
       </div>
 
      <div className="flex -mx-3">
-     <div class="w-1/2 px-3 mb-5">
+     <div className="w-1/2 px-3 mb-5">
        <label className="block text-gray-400 text-sm font-bold mb-2 text-left" htmlFor="password">
           Password
         </label>
@@ -57,7 +89,7 @@ function EditProfile({ currentUser, toggleEditProfileModal }) {
            autoComplete='password' />
       </div>
 
-      <div class="w-1/2 px-3 mb-5">
+      <div className="w-1/2 px-3 mb-5">
        <label className="block text-gray-400 text-sm font-bold mb-2 text-left" htmlFor="confirmPassword">
           Confirm Password
         </label>
@@ -78,6 +110,7 @@ function EditProfile({ currentUser, toggleEditProfileModal }) {
           type='text'
           name="displayName"
           placeholder={`${displayName}`}
+          defaultValue={`${displayName}`}
           autoComplete='Display Name' />
       </div>
 
@@ -89,6 +122,7 @@ function EditProfile({ currentUser, toggleEditProfileModal }) {
           type='text'
           name="icon"
           placeholder={`${icon}`}
+          defaultValue={`${icon}`}
           autoComplete='Icon Url' />
       </div>
 
@@ -106,7 +140,7 @@ function EditProfile({ currentUser, toggleEditProfileModal }) {
           </div>
               </li>
               <li>
-          <button className="group-hover:text-white text-gray-500 mt-4"
+          <button className="text-center text-gray-400 hover:text-purple-600 transition duration-1000 text-xs"
                   onClick={toggleEditProfileModal}>
                   Cancel
           </button>

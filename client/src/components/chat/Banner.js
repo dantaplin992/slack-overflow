@@ -19,6 +19,9 @@ function Banner({ currentUser, logoutFunction, currentRoom }) {
   const dropdownProps = { logoutFunction, currentUser, animationClass, toggleEditProfileModal }
 
   function toggleEditProfileModal() {
+    if (showDropdown) {
+      toggleDropdown()
+    }
     setShowEditProfileModal(value => !value)
   }
 
@@ -34,7 +37,7 @@ function Banner({ currentUser, logoutFunction, currentRoom }) {
        </button>
       <DropdownMenu {...dropdownProps}/>
       </div>
-      { showEditProfileModal ? <EditProfile currentUser = {currentUser} toggleEditProfileModal={toggleEditProfileModal}/> : null }
+      { showEditProfileModal ? <EditProfile currentUser = {currentUser} toggleEditProfileModal={toggleEditProfileModal}/>: null }
       </div>
   )
 }
