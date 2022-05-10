@@ -34,16 +34,19 @@ class App extends React.Component {
     .then(data => {
       if (data.message === 'loggedIn') {
 
-        const setUser = { firstName: data.firstName,
-                    lastName: data.lastName,
-                    email: data.email,
-                    icon: data.icon,
-                    displayName: data.displayName,
-                    id: data.id
-                  }
+        const setUser = {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          icon: data.icon,
+          displayName: data.displayName,
+          id: data.id
+        }
 
         this.setState({ loggedIn: true, currentUser: setUser })
         localStorage.setItem('currentUser', JSON.stringify(setUser))
+      } else {
+        alert('The email or password you entered are incorrect')
       }
     })
   }
