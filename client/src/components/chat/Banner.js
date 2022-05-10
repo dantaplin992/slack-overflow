@@ -1,15 +1,24 @@
 import React from 'react'
-import EditProfile from './EditProfile'
+import DropdownMenu from './DropdownMenu'
 
 function Banner(props) {
   const [showDropdown, setShowDropdown] = React.useState(false)
-  const toggleDropdown = () => setShowDropdown(value => !value)
+  const [animationClass, setAnimationClass] = React.useState("banner_dropdownhidden")
   const { firstName, lastName, email, icon, displayName } = props.currentUser
-
-  const logout = () => {
-    props.logoutFunction()
-  }
   
+  const toggleDropdown = () => {setShowDropdown(value => !value)
+                                 if(!showDropdown) {
+                                   setAnimationClass("banner_dropdown")
+                                 } else {
+                                   setAnimationClass("banner_dropdownreverse")
+                                 }}
+
+  const dropdownProps = {
+    logoutFunction: props.logoutFunction,
+    currentUser: props.currentUser,
+    animationClass: animationClass
+  }
+
   return (
     <div className='Banner'>
        <div>
@@ -18,17 +27,8 @@ function Banner(props) {
            {firstName} {lastName}
        </button>
        {showDropdown ? (
-       <div className=" bg-gray-800 text-gray-400 text-sm flex flex-col mt-0 mr-0 banner_dropdown">
-         <ul>
-           <li className='bannerProfile'>
-         <EditProfile currentUser={props.currentUser} />
-           </li>
-           <li className='bannerProfile'>
-         {<button onClick={logout}>Logout</button>}
-           </li>
-         </ul>
-       </div>
-       ): null}
+      <DropdownMenu dropdownProps={dropdownProps}/>
+       ): <DropdownMenu dropdownProps={dropdownProps}/>}
       </div>
       </div>
   )
