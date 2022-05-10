@@ -1,34 +1,34 @@
-import Message from "./feed/Message"
+import { validateForm } from '../utils/validateForm'
 
-function EditProfile({ currentUser, toggleEditProfileModal }) {
+function EditProfile({ currentUser, toggleEditProfileModal, loginFunction, logoutFunction }) {
   const { firstName, lastName, email, icon, displayName, id } = currentUser
 
   function editProfile(e) {
     e.preventDefault()
-
-    toggleEditProfileModal()
-
     const updatedUser = { firstName: e.target.firstName.value,
                           lastName: e.target.lastName.value,
                           email: e.target.email.value,
                           icon: e.target.icon.value,
                           displayName: e.target.displayName.value,
                           id: id,
-                          password: e.target.password.value
+                          password: e.target.password.value,
+                          confirmPassword: e.target.confirmPassword.value
                         }
 
-    console.log('updatedUser: ', updatedUser)
-
-    fetch(`http://localhost:5000/users/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedUser),
-    }).then(response => response.json()
-    ).then(data => {
-      alert(data.message)
-    })
+    if (validateForm(updatedUser)) {
+      toggleEditProfileModal()
+  
+      fetch(`http://localhost:5000/users/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedUser),
+      }).then(response => response.json()
+      ).then(() => {
+        loginFunction(updatedUser.email, updatedUser.password)
+      })
+    }
   }
 
   return(

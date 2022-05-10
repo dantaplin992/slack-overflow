@@ -33,14 +33,12 @@ const UserController = {
     })
   },
 
-  Update: (req, res, next) => {
-    console.log('reached the server: ', req.body)
+  Update: (req, res) => {
     const { id, password } = req.body
     let updatedUserObj = req.body
 
     bcrypt.hash(password, 10, (err, hash) => {
       if (err) throw err
-      console.log('hash: ', hash)
       updatedUserObj.password = hash
       const updatedUser = updatedUserObj
       

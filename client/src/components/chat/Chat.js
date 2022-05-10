@@ -20,11 +20,11 @@ class Chat extends React.Component {
 
   render = () => {
     const { currentUser } = this.props.currentState
-    const { logoutFunction } = this.props
+    const { logoutFunction, loginFunction } = this.props
   
     return (
       <div className='Chat'>
-        <Banner currentUser={currentUser} logoutFunction={logoutFunction} currentRoom={this.state.currentRoom}/>
+        <Banner currentUser={currentUser} logoutFunction={logoutFunction} loginFunction={loginFunction} currentRoom={this.state.currentRoom}/>
         <SideBar changeRoom={this.changeRoom}/>
         <Feed currentRoom={this.state.currentRoom} currentUser={currentUser}/>
       </div>

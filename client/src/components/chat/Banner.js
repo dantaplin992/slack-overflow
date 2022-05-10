@@ -2,7 +2,7 @@ import { useState } from 'react'
 import DropdownMenu from './DropdownMenu'
 import EditProfile from './EditProfile'
 
-function Banner({ currentUser, logoutFunction, currentRoom }) {
+function Banner({ currentUser, logoutFunction, loginFunction, currentRoom }) {
   const [showDropdown, setShowDropdown] = useState(false)
   const [showEditProfileModal, setShowEditProfileModal] = useState(false)
   const [animationClass, setAnimationClass] = useState("banner_dropdownhidden")
@@ -37,7 +37,11 @@ function Banner({ currentUser, logoutFunction, currentRoom }) {
        </button>
       <DropdownMenu {...dropdownProps}/>
       </div>
-      { showEditProfileModal ? <EditProfile currentUser = {currentUser} toggleEditProfileModal={toggleEditProfileModal}/>: null }
+      { showEditProfileModal ? <EditProfile currentUser = {currentUser}
+                                            toggleEditProfileModal={toggleEditProfileModal}
+                                            loginFunction={loginFunction}
+                                            logoutFunction={logoutFunction}
+                                            />: null }
       </div>
   )
 }
