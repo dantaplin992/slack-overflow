@@ -21,7 +21,6 @@ class UserAuth extends React.Component {
                       <Signup signUpFunction={this.props.signUpFunction} />
     return (
       <div className='UserAuth'>
-        UserAuth <br />
         {displayPage}
       </div>
     )
