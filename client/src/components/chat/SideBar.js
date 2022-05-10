@@ -30,7 +30,7 @@ const SideBarIcon = ({ icon, name, roomChange }) => {
   return (
     <div className="sidebar-icon group">
       <button onClick={() => giveRoomName(name)}>{icon}</button>
-      <span className="sidebar-tooltip group-hover:scale-100">
+      <span className="sidebar-tooltip group-hover:scale-100 group-hover:text-white">
       {name}
       </span>
     </div>

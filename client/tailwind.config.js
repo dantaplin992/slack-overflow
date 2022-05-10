@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        tilt: 'tilt 10s infinite linear'
+        tilt: 'tilt 7s infinite linear'
       },
       keyframes: {
         tilt: {
@@ -14,10 +14,10 @@ module.exports = {
             transform: "rotate(0deg)",
           },
           "25%": {
-            transform: "rotate(1deg)",
+            transform: "rotate(10deg)",
           },
           "75%": {
-            transform: "rotate(-1deg)",
+            transform: "rotate(-10deg)",
           }
           },
         },

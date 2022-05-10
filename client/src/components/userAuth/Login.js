@@ -42,13 +42,17 @@ class Login extends React.Component {
                autoComplete='password' />
           </div>
            <div className="flex justify-center">
-            <input className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+             <div className= "relative group">
+               <div className= "edgeGlow"></div>
+            <input className="relative bg-gray-600 group-hover:text-white text-gray-500  transition duration-1000 font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline cursor-pointer"
               type="submit"
               value="Login" />
+           
+           </div>
            </div>
         <div className="mt-5">
           <p className="text-center text-gray-400 text-xs">Don't have an account?</p>
-          <button className="text-center text-gray-400 hover:text-purple-600 text-xs"
+          <button className="text-center text-gray-400 hover:text-purple-600 transition duration-1000 text-xs"
                   onClick={signUp}>Sign Up</button>
         </div>
        </form>

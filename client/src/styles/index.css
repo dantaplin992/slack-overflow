@@ -14,9 +14,9 @@
 
   .sidebar-tooltip {
     @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md
-    text-white bg-gray-800
+    text-gray-800 bg-gray-800
     text-xs font-bold
-    transition-all duration-100 scale-0 origin-left
+    transition-all duration-300 scale-0 origin-left ease-in-out
   }
 
   .sidebar-hr {
@@ -104,7 +104,7 @@
     pr-10 pl-10 h-10
     text-gray-500 text-sm
     hover:bg-purple-500 hover:text-white
-    rounded-xl hover:rounded-none
+    rounded-none
     transition-all duration-300 ease-linear
   }
 
@@ -117,8 +117,8 @@
   }
 
   .edgeGlow {
-    @apply absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg
-    blur opacity-75 hover:opacity-100 transition duration-300 animate-tilt
+    @apply absolute -inset-1 bg-gradient-to-r from-cyan-600 to-purple-600 rounded-lg
+    blur opacity-75 group-hover:opacity-100 transition duration-1000 animate-tilt
   }
 
   .darkButton {
