@@ -1,11 +1,9 @@
 import React from 'react'
 import Message from './Message'
-import MessageInput from './MessageInput'
 import io from 'socket.io-client'
 import { IoSend } from "react-icons/io5";
 import { BsImage, BsFillEmojiDizzyFill, BsCodeSlash } from "react-icons/bs";
 import { AiOutlineFileGif } from "react-icons/ai";
-
 
 class Feed extends React.Component {
   constructor(props) {
@@ -19,24 +17,7 @@ class Feed extends React.Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  getAllMessages() {
-    const that = this
-    const url = 'http://localhost:5000/messages/all'
-    fetch(url, {
-      method: "GET",
-      mode: 'cors',
-      credentials: 'include',
-    }
-    ).then(res => res.json()
-    ).then((data) => {
-      that.setState(
-        {
-          messages: data,
-        }
-      )
-    })
+    this.emitReaction = this.emitReaction.bind(this)
   }
 
   getRoomMessages() {
@@ -75,8 +56,11 @@ class Feed extends React.Component {
     })
 
     this.socket.on('displayNewMessage', (params) => {
-      console.log(params.timeStamp)
       this.displayNewMessage(params)
+    })
+
+    this.socket.on('displayNewReaction', (params) => {
+      this.getRoomMessages()
     })
   }
 
@@ -103,6 +87,7 @@ class Feed extends React.Component {
       }
 
       this.passMessageToServer(newMessage)
+      console.log("socket: " + this.socket)
       this.socket.emit('newMessage', socketMessage)
       this.setState({ newMessageInput: '' })
     }
@@ -122,6 +107,10 @@ class Feed extends React.Component {
     })
   }
 
+  emitReaction(params) {
+    this.socket.emit('newReaction', params)
+  }
+
   displayNewMessage(messageObj) {
     const currentMessages = this.state.messages
     const newMessages = []
@@ -130,18 +119,21 @@ class Feed extends React.Component {
     this.setState({ messages: newMessages })
   }
 
-  filterMessagesByRoom() {
-    const allMessages = this.state.messages
-    const filteredMessages = this.state.messages.filter(obj => {
-      return obj.roomName === this.props.currentRoom
-    })
-    return filteredMessages
-  }
-
   render() {
     const messageComponents = []
     for (let i = 0; i < this.state.messages.length; i++) {
-      messageComponents.push(<Message key={i} authorId={this.state.messages[i].authorId} text={this.state.messages[i].message} timeStamp={this.state.messages[i].timeStamp} />)
+      messageComponents.push(
+        <Message 
+          key={i} 
+          authorId={this.state.messages[i].authorId} 
+          text={this.state.messages[i].message} 
+          timeStamp={this.state.messages[i].timeStamp} 
+          reactions={this.state.messages[i].reactions}
+          messageId={this.state.messages[i]._id}
+          currentUser={this.props.currentUser}
+          emitReaction={this.emitReaction}
+        />
+      )
     }
 
     return (

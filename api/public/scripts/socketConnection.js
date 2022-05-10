@@ -1,4 +1,4 @@
-
+const Message = require('../../models/message.js')
 
 function chat(io) {
   io.on('connection', (socket) => {
@@ -32,6 +32,17 @@ function chat(io) {
     socket.on('newMessage', (newMessage) => {
 
       io.to(currentRoom).emit('displayNewMessage', newMessage)
+    })
+
+    socket.on('newReaction', (params) => {
+      console.log(params)
+      // Add reaction to message in DB
+      Message.updateOne(
+        { _id: params.messageId },
+        { reactions: params.newReactions }
+      ).then(() => {
+        io.to(currentRoom).emit('displayNewReaction', params)
+      })
     })
   })
 }
