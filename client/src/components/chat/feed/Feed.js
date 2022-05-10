@@ -86,11 +86,23 @@ class Feed extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     if (this.state.newMessageInput != '') {
+      const { firstName, lastName, displayName, icon } = this.props.currentUser
       const newTimeStamp = new Date
-      const newMessage = { message: this.state.newMessageInput, roomName: this.props.currentRoom, timeStamp: newTimeStamp }
-  
+      const newMessage = { 
+        message: this.state.newMessageInput, 
+        roomName: this.props.currentRoom, 
+        timeStamp: newTimeStamp, 
+        authorId: this.props.currentUser.id 
+      }
+      const socketMessage = { 
+        message: this.state.newMessageInput, 
+        roomName: this.props.currentRoom, 
+        timeStamp: newTimeStamp, 
+        authorId: { displayName: displayName, firstName: firstName, lastName: lastName, icon: icon } 
+      }
+
       this.passMessageToServer(newMessage)
-      this.socket.emit('newMessage', newMessage)
+      this.socket.emit('newMessage', socketMessage)
       this.setState({ newMessageInput: '' })
     }
   }
@@ -128,8 +140,9 @@ class Feed extends React.Component {
   render() {
     const messageComponents = []
     for (let i = 0; i < this.state.messages.length; i++) {
-      messageComponents.push(<Message key={i} text={this.state.messages[i].message} timeStamp={this.state.messages[i].timeStamp} />)
+      messageComponents.push(<Message key={i} authorId={this.state.messages[i].authorId} text={this.state.messages[i].message} timeStamp={this.state.messages[i].timeStamp} />)
     }
+
     return (
       <div className='Feed'>
         <p>{this.props.currentRoom}</p>

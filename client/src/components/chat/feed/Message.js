@@ -5,8 +5,8 @@ import 'moment-timezone';
 class Message extends React.Component {
 
   render = () => {
-    const {text: msg, timeStamp: time} = this.props
-    console.log(this.props)
+    const {text: msg, timeStamp: time } = this.props
+    const { firstName, lastName, displayName, icon } = this.props.authorId
     return (
       <div className='Message'>
         <div>
@@ -20,7 +20,7 @@ class Message extends React.Component {
           </Moment>
         </div>
         <div>
-          {msg} 
+        {displayName} : {msg} 
         </div>
       </div>
     )
