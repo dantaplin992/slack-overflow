@@ -19,24 +19,7 @@ class Feed extends React.Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  getAllMessages() {
-    const that = this
-    const url = 'http://localhost:5000/messages/all'
-    fetch(url, {
-      method: "GET",
-      mode: 'cors',
-      credentials: 'include',
-    }
-    ).then(res => res.json()
-    ).then((data) => {
-      that.setState(
-        {
-          messages: data,
-        }
-      )
-    })
+    this.emitReaction = this.emitReaction.bind(this)
   }
 
   getRoomMessages() {
@@ -75,7 +58,6 @@ class Feed extends React.Component {
     })
 
     this.socket.on('displayNewMessage', (params) => {
-      console.log(params.timeStamp)
       this.displayNewMessage(params)
     })
   }
@@ -103,6 +85,7 @@ class Feed extends React.Component {
       }
 
       this.passMessageToServer(newMessage)
+      console.log("socket: " + this.socket)
       this.socket.emit('newMessage', socketMessage)
       this.setState({ newMessageInput: '' })
     }
@@ -120,6 +103,10 @@ class Feed extends React.Component {
     }).then((result) => {
       console.log(result)
     })
+  }
+
+  emitReaction() {
+    this.socket.emit('newReaction', 'Reacting to a post')
   }
 
   displayNewMessage(messageObj) {
@@ -141,7 +128,14 @@ class Feed extends React.Component {
   render() {
     const messageComponents = []
     for (let i = 0; i < this.state.messages.length; i++) {
-      messageComponents.push(<Message key={i} authorId={this.state.messages[i].authorId} text={this.state.messages[i].message} timeStamp={this.state.messages[i].timeStamp} currentUser={this.props.currentUser}/>)
+      messageComponents.push(<Message 
+                              key={i} 
+                              authorId={this.state.messages[i].authorId} 
+                              text={this.state.messages[i].message} 
+                              timeStamp={this.state.messages[i].timeStamp} 
+                              currentUser={this.props.currentUser}
+                              emitReaction={this.emitReaction}
+                              />)
     }
 
     return (

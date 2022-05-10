@@ -33,6 +33,10 @@ function chat(io) {
 
       io.to(currentRoom).emit('displayNewMessage', newMessage)
     })
+
+    socket.on('newReaction', (params) => {
+      console.log(params)
+    })
   })
 }
 

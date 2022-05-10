@@ -46,8 +46,7 @@ class Message extends React.Component {
       newReactions.push(newReaction)
     }
     this.setState({ reactions: newReactions })
-
-    console.log(newReactions)
+    this.props.emitReaction()
   }
 
   reactionElements() {
