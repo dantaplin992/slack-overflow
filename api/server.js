@@ -4,7 +4,7 @@ const path = require("path")
 const cors = require('cors')
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: '*',
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: true,
   credentials: true
