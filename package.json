@@ -1,4 +1,10 @@
 {
+  "engines": {
+    "node": "16.14.2"
+  },
+  "scripts": {
+    "start": "cd client && npm start"
+  },
   "dependencies": {
     "i": "^0.3.7",
     "moment-timezone": "^0.5.34",
