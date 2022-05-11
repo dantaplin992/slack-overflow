@@ -3,7 +3,7 @@
     "node": "16.14.2"
   },
   "scripts": {
-    "start": "cd client && npm start"
+    "start": "cd client && npm build & npm start"
   },
   "dependencies": {
     "i": "^0.3.7",
