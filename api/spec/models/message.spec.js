@@ -1,7 +1,25 @@
 var mongoose = require("mongoose");
-
 require("../mongodb_helper");
 var Message = require("../../models/message")
+
+const UserSchema = new mongoose.Schema({
+  firstName: String,
+  lastName: String,
+  displayName: String,
+  icon: String,
+  password: String,
+});
+
+const User = mongoose.model("User", UserSchema);
+
+const mockUser = new User({
+  firstName: "John",
+  lastName: "Doe",
+  displayName: "John Doe",
+  icon: "https://avatars0.githubusercontent.com/u/174825?s=460&v=4",
+  password: "password",
+});
+
 
 describe("Message model", () => {
     beforeEach((done) => {
@@ -16,20 +34,18 @@ describe("Message model", () => {
       });
 
     it("has an author id", () => {
-        var mockUser = mongoose.Schema.Types.ObjectId
         var message = new Message({ authorId: mockUser });
         expect(message.authorId).toEqual(mockUser);
     });
 
     it("has a reaction", () => {
-        var mockUser = mongoose.Schema.Types.ObjectId
         var message = new Message({ reactions: { user: mockUser, emoji: "😊" }});
         expect(message.reactions[0].user).toEqual(mockUser);
         expect(message.reactions[0].emoji).toEqual("😊");
     });
 
     it("shows a reply to a message", () => {
-        var mockMessage = mongoose.Schema.Types.ObjectId
+        const mockMessage = new Message({ message: "mock message" });
         var message = new Message({ isReplyTo: mockMessage});
         expect(message.isReplyTo).toEqual(mockMessage);
     });

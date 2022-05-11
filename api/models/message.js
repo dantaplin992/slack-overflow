@@ -1,4 +1,4 @@
-const mongoose = require("mongoose"); 
+const mongoose = require("mongoose")
 
 const MessageSchema = new mongoose.Schema({
     authorId: {
@@ -6,18 +6,16 @@ const MessageSchema = new mongoose.Schema({
         ref: "User"
     },
     message: String,
-    reactions: [{
-        emoji: String,
-        user: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-        }
-    }],
+    reactions: [],
     isReplyTo: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Message"
     }, 
-    timeStamp: Date,
+    timeStamp: {
+        type: Date,
+        default: Date.now
+    },
+    roomName: String,
 });
 
 const Message = mongoose.model("Message", MessageSchema);

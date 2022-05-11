@@ -1,29 +1,35 @@
 import React from 'react'
-import io from 'socket.io-client'
 import Feed from './feed/Feed'
 import Banner from './Banner'
-import Rooms from './Rooms'
+import SideBar from './SideBar';
 
 class Chat extends React.Component {
+  constructor(props) {
+    super(props)
+    this.socket = null
+    this.state = {
+      currentRoom: "General",
+    }
+    this.changeRoom = this.changeRoom.bind(this)
+  }
 
-  socketConnect = () => {
-    const socket = io(`localhost:5000`);
-
-    socket.on('handshake', (msg) => {
-      console.log(msg)
-    })
+  changeRoom(newRoom) {
+    this.setState({ currentRoom: newRoom })
   }
 
   render = () => {
-    this.socketConnect()
+    const { currentUser } = this.props.currentState
+    const { logoutFunction, loginFunction } = this.props
+  
     return (
       <div className='Chat'>
-        <Banner />
-        <Rooms />
-        <Feed />
+        <Feed currentRoom={this.state.currentRoom} currentUser={currentUser}/>
+        <Banner currentUser={currentUser} logoutFunction={logoutFunction} loginFunction={loginFunction} currentRoom={this.state.currentRoom}/>
+        <SideBar changeRoom={this.changeRoom}/> 
       </div>
     )
   }
+
 }
 
 export default Chat

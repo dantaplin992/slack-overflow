@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1651668650005" clover="3.2.0">
-  <project timestamp="1651668650005" name="All files">
-    <metrics statements="67" coveredstatements="67" conditionals="5" coveredconditionals="5" methods="0" coveredmethods="0" elements="72" coveredelements="72" complexity="0" loc="67" ncloc="67" packages="2" files="4" classes="4"/>
+<coverage generated="1651671419926" clover="3.2.0">
+  <project timestamp="1651671419927" name="All files">
+    <metrics statements="70" coveredstatements="70" conditionals="5" coveredconditionals="5" methods="0" coveredmethods="0" elements="75" coveredelements="75" complexity="0" loc="70" ncloc="70" packages="2" files="4" classes="4"/>
     <package name="models">
-      <metrics statements="46" coveredstatements="46" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="message.js" path="/Users/jake.dance/git/Team-HX/slack-overflow/api/models/message.js">
-        <metrics statements="24" coveredstatements="24" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="49" coveredstatements="49" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="message.js" path="/Users/jonathan.clarke/Makers/slack-overflow/api/models/message.js">
+        <metrics statements="27" coveredstatements="27" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -30,8 +30,11 @@
         <line num="22" count="1" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
         <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
       </file>
-      <file name="room.js" path="/Users/jake.dance/git/Team-HX/slack-overflow/api/models/room.js">
+      <file name="room.js" path="/Users/jonathan.clarke/Makers/slack-overflow/api/models/room.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -44,7 +47,7 @@
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
       </file>
-      <file name="user.js" path="/Users/jake.dance/git/Team-HX/slack-overflow/api/models/user.js">
+      <file name="user.js" path="/Users/jonathan.clarke/Makers/slack-overflow/api/models/user.js">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -62,7 +65,7 @@
     </package>
     <package name="spec">
       <metrics statements="21" coveredstatements="21" conditionals="5" coveredconditionals="5" methods="0" coveredmethods="0"/>
-      <file name="mongodb_helper.js" path="/Users/jake.dance/git/Team-HX/slack-overflow/api/spec/mongodb_helper.js">
+      <file name="mongodb_helper.js" path="/Users/jonathan.clarke/Makers/slack-overflow/api/spec/mongodb_helper.js">
         <metrics statements="21" coveredstatements="21" conditionals="5" coveredconditionals="5" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
