@@ -2,6 +2,10 @@ import React from 'react'
 import Moment from 'react-moment'
 import 'moment-timezone'
 import equal from 'fast-deep-equal'
+import {AiOutlineHeart} from "react-icons/ai";
+import {RiEmotionLaughLine} from "react-icons/ri";
+import {FiThumbsUp, FiThumbsDown} from "react-icons/fi";
+
 
 class Message extends React.Component {
   constructor(props) {
@@ -68,7 +72,7 @@ class Message extends React.Component {
     for (let i in uniqueEmojis) {
       let elementClass = uniqueEmojis[i] === myReaction ? "reaction-icon-active" : "reaction-icon"
       let emojiDisplayNumber = uniqueEmojiCount[i] > 1 ? uniqueEmojiCount[i] : ''
-      elements.push(<span className={elementClass} key={i}><span>{uniqueEmojis[i]}</span><span>{emojiDisplayNumber}</span></span>)
+      elements.push(<span className={elementClass} key={i}><span>{uniqueEmojis[i]}</span><span className= "font-bold text-gray-900">{emojiDisplayNumber}</span></span>)
     }
     return elements
   }
@@ -77,7 +81,7 @@ class Message extends React.Component {
     const {text: msg, timeStamp: time } = this.props
     const { firstName, lastName, displayName, icon } = this.props.authorId
     return (
-      <div className='chat-container text-gray-400'>
+      <div className='chat-container group text-gray-400'>
         <div className='chat-profile-container'>
           <img className='w-10 h-10 mt-2 mb-2 rounded-md shadow-lq' src={icon}/>
         </div>
@@ -94,16 +98,16 @@ class Message extends React.Component {
           </Moment>
         </div> */}
         <div className='chat-message'>
-       {msg}
-        </div>
-        <div>
+          {msg}
+        <div className='chat-reaction'>
           {this.reactionElements()}
         </div>
-        <div>
-          <button onClick={() => { this.addReaction("❤️") }} key="heart" >❤️</button>
-          <button onClick={() => { this.addReaction("😂") }} key="laugh" >😂</button>
-          <button onClick={() => { this.addReaction("👍") }} key="up" >👍</button>
-          <button onClick={() => { this.addReaction("👎") }} key="down" >👎</button>
+        </div>
+        <div className="chat-reaction-bar group-hover:scale-100">
+          <button className="chat-reaction-icon" onClick={() => { this.addReaction("❤️") }} key="heart" >{<AiOutlineHeart size="18" />}</button>
+          <button className="chat-reaction-icon" onClick={() => { this.addReaction("😂") }} key="laugh" >{<RiEmotionLaughLine size="18" />}</button>
+          <button className="chat-reaction-icon" onClick={() => { this.addReaction("👍") }} key="up" >{<FiThumbsUp size="18" />}</button>
+          <button className="chat-reaction-icon" onClick={() => { this.addReaction("👎") }} key="down" >{<FiThumbsDown size="18" />}</button>
         </div>
       </div>
       </div>
