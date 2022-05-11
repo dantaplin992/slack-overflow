@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "nodemon bin/www"
+    "start": "nodemon bin/www",
+    "start:test": "PORT=3030 MONGODB_URL='mongodb://127.0.0.1/slack-overflow-test' npm start"
   },
   "keywords": [],
   "author": "",
