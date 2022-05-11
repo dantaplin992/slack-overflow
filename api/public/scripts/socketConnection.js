@@ -61,6 +61,15 @@ function chat(io) {
         io.to(currentRoom).emit('refreshMessages')
       })
     })
+
+    socket.on('editMessage', (params) => {
+      Message.updateOne(
+        { _id: params.messageId },
+        { message: params.newText }
+      ).then(() => {
+        io.to(currentRoom).emit('refreshMessages')
+      })
+    })
   })
 }
 
