@@ -31,7 +31,27 @@ const UserController = {
         }
       })
     })
-  }
+  },
+
+  Update: (req, res) => {
+    const { id, password } = req.body
+    let updatedUserObj = req.body
+
+    bcrypt.hash(password, 10, (err, hash) => {
+      if (err) throw err
+      updatedUserObj.password = hash
+      const updatedUser = updatedUserObj
+      
+      User.findByIdAndUpdate(id, updatedUser, { new: true }, (err) => {
+        if (err) { throw err }
+        res.json({
+          message: "Profile updated",
+        })
+      })
+    })
+  },
+
+
 }
           
      

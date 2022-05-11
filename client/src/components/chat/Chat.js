@@ -14,20 +14,18 @@ class Chat extends React.Component {
   }
 
   changeRoom(newRoom) {
-    console.log(newRoom)
     this.setState({ currentRoom: newRoom })
   }
 
   render = () => {
     const { currentUser } = this.props.currentState
-    const { logoutFunction } = this.props
+    const { logoutFunction, loginFunction } = this.props
   
     return (
       <div className='Chat'>
         <Feed currentRoom={this.state.currentRoom} currentUser={currentUser}/>
-        <Banner currentUser={currentUser} logoutFunction={logoutFunction}/>
-        <SideBar changeRoom={this.changeRoom}/>
-        
+        <Banner currentUser={currentUser} logoutFunction={logoutFunction} loginFunction={loginFunction} currentRoom={this.state.currentRoom}/>
+        <SideBar changeRoom={this.changeRoom}/> 
       </div>
     )
   }
