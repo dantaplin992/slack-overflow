@@ -32,7 +32,7 @@ function Banner({ currentUser, logoutFunction, loginFunction, currentRoom }) {
       </div>
        <div>
            <button type="button" className='bannerProfile' onClick={toggleDropdown}>
-           <img className="w-6 h-6 mr-2 rounded-full shadow-lq" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"/>
+           <img className="w-6 h-6 mr-2 rounded-full shadow-lq" src={icon}/>
            {displayName}
        </button>
       <DropdownMenu {...dropdownProps}/>

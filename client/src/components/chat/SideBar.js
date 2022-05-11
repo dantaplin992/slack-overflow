@@ -1,5 +1,6 @@
 import {DiRuby, DiJsBadge, DiReact, DiCss3, DiCssdeck, DiCssTricks} from "react-icons/di";
-import {BsCode} from "react-icons/bs";
+import {BsCode} from "react-icons/bs"; 
+import {SiTailwindcss} from "react-icons/si";
 import React, { useState } from 'react'
 
 const SideBar = ({ changeRoom }) => {
@@ -16,7 +17,7 @@ const SideBar = ({ changeRoom }) => {
         <Divider />
         <SideBarIcon icon={<DiCss3 size="24" />} name="CSS" id="CSS" roomChange={changeRoom} />
         <SideBarIcon icon={<DiCssdeck size="24" />} name="CSS Deck" id="CSS-Deck" roomChange={changeRoom} />
-        <SideBarIcon icon={<DiCssTricks size="24" />} name="CSS Tricks" id="CSS-Tricks" roomChange={changeRoom} />
+        <SideBarIcon icon={<SiTailwindcss size="22" />} name="Tailwind" id="Tailwind" roomChange={changeRoom} />
     </div>
   )
 }
