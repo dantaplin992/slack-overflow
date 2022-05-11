@@ -24,7 +24,7 @@ class App extends React.Component {
   login = (email, password) => {
     const credentials = { email: email, password: password } 
 
-    fetch('http://localhost:5000/sessions/new', {
+    fetch('https://localhost:5000/sessions/new', {
       method: 'POST',
       mode: "no-cors",
       headers: {
@@ -63,7 +63,7 @@ class App extends React.Component {
   }
 
   signUp = (newUser) => {
-    fetch('http://localhost:5000/users/new', {
+    fetch('https://localhost:5000/users/new', {
       method: 'POST',
       mode: "no-cors",
       headers: {
