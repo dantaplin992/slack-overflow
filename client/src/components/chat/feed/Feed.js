@@ -23,7 +23,7 @@ class Feed extends React.Component {
     this.getUrl = this.getUrl.bind(this)
   }
 
-   getRoomMessages() {
+  getRoomMessages() {
     const that = this
     const url = `http://localhost:5000/messages/room/${this.props.currentRoom}`
     fetch(url, {
@@ -73,7 +73,6 @@ class Feed extends React.Component {
   }
   
   getUrl(url) {
-    console.log('feed get url called, value : ', url)
     this.setState({ imageUrl: url })
   }
 
@@ -87,9 +86,8 @@ class Feed extends React.Component {
         roomName: this.props.currentRoom, 
         timeStamp: newTimeStamp, 
         authorId: this.props.currentUser.id,
-        imageUrl: this.state.imageUrl 
-      }
-      console.log('new message url: ', newMessage.imageUrl)
+        imageUrl: this.state.imageUrl }
+
       const socketMessage = { 
         message: this.state.newMessageInput, 
         roomName: this.props.currentRoom, 
@@ -99,14 +97,14 @@ class Feed extends React.Component {
       }
 
       this.passMessageToServer(newMessage)
-      console.log("socket: " + this.socket)
       this.socket.emit('newMessage', socketMessage)
       this.setState({ newMessageInput: '' })
     }
+    const element = document.getElementById('feed')
+    element.scrollTop = element.scrollHeight
   }
 
   passMessageToServer(newMessage) {
-    console.log("Message: " + newMessage.message )
     const url = `http://localhost:5000/messages/new`
     fetch(url, {
       method: 'POST',
@@ -115,7 +113,6 @@ class Feed extends React.Component {
       },
       body: JSON.stringify(newMessage)
     }).then((result) => {
-      console.log(result)
     })
   }
 
@@ -136,7 +133,7 @@ class Feed extends React.Component {
     for (let i = 0; i < this.state.messages.length; i++) {
       messageComponents.push(
         <Message 
-          key={i} 
+          key={i}
           authorId={this.state.messages[i].authorId} 
           text={this.state.messages[i].message} 
           imageUrl={this.state.messages[i].imageUrl}
@@ -150,13 +147,13 @@ class Feed extends React.Component {
     }
 
     return (
-      <div className='Feed'>
+      <div className='Feed' id="feed">
         <p>{this.props.currentRoom}</p>
 
         {messageComponents}
-       
+
           <div className='bottom-bar'>
-            <input
+              <input
               id='messageInput' 
               className='bottom-bar-input' 
               type="text" 
@@ -197,22 +194,26 @@ class Feed extends React.Component {
             </button>
             </div>
           </div>
+          <div id="bottom"></div>        
       </div>
+      
     )
   }
 
   componentDidMount() {
     if (!this.socket) this.socketConnect()
     this.getRoomMessages()
+    const element = document.getElementById('bottom')
+    element.scrollTop = element.scrollHeight
   }
-
+  
   componentDidUpdate(prevProps) {
     if(this.props.currentRoom != prevProps.currentRoom) {
       console.log(`leaving room: ${prevProps.currentRoom}`)
       console.log(`joining room: ${this.props.currentRoom}`)
       this.socket.emit('joinNewRoom', this.props.currentRoom)
       this.getRoomMessages()
-    }
+    }    
   }
 }
 
