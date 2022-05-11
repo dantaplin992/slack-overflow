@@ -232,6 +232,10 @@ code {
   background-color: rgb(176, 78, 176);
 }
 
+.delete-message-button {
+  border: 1px solid purple;
+  border-radius: 4px;
+}
 
 @tailwind utilities;
 
