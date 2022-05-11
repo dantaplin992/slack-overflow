@@ -1,26 +1,22 @@
-import React from 'react'
-import EditProfile from './EditProfile'
+function DropdownMenu({ currentUser, logoutFunction, animationClass, toggleEditProfileModal }) {
 
-function DropdownMenu(props) {
-
-  const logout = () => {
-    logoutFunction()
-  }
-
-  const { animationClass, currentUser, logoutFunction } = props.dropdownProps
   const { firstName, lastName, email, icon, displayName } = currentUser
-
-  
 
   return(
     <div className={`${animationClass}`}>
-    <div className=" bg-gray-800 text-gray-400 text-sm flex flex-col mt-0 mr-0">
+    <div className="bannerDropdownList">
          <ul>
-           <li className='bannerProfile'>
-             <EditProfile currentUser={currentUser} />
+           <li>
+             {firstName} {lastName}
+           </li>
+           <li>
+              {email}
            </li>
            <li className='bannerProfile'>
-             {<button onClick={logout}>Logout</button>}
+             {<button onClick={toggleEditProfileModal}>Edit Profile</button>}
+           </li>
+           <li className='bannerProfile'>
+             {<button onClick={logoutFunction}>Logout</button>}
            </li>
          </ul>
        </div>

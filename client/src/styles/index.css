@@ -89,7 +89,9 @@
   }
 
   .Banner {
-    @apply flex flex-row-reverse
+    @apply flex flex-row
+    justify-between
+    ml-16
     fixed left-0 right-0 top-0
     shadow-lg
     bg-gray-800
@@ -99,12 +101,19 @@
   .bannerProfile {
     @apply relative flex flex-row
     items-center justify-center
-    pr-4 pl-4 h-10
+    pr-10 pl-10 h-10
     text-gray-500 text-sm
     hover:bg-purple-500 hover:text-white
     rounded-none
     transition-all duration-300 ease-linear
-    
+  }
+
+  .bannerRoom {
+    @apply text-gray-400
+  }
+
+  .bannerDropdownList {
+    @apply bg-gray-800 text-gray-400 text-sm flex flex-col mt-0 mr-0
   }
 
   .edgeGlow {

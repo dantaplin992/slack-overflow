@@ -82,7 +82,7 @@ class App extends React.Component {
   
   render = () => { 
     const content = this.state.loggedIn ?
-                      <Chat currentState={this.state} logoutFunction={this.logout} />
+                      <Chat currentState={this.state} logoutFunction={this.logout} loginFunction={this.login} />
                       :
                       <UserAuth loginFunction={this.login} signUpFunction={this.signUp} />
     return (
