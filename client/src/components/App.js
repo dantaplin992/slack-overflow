@@ -65,7 +65,7 @@ class App extends React.Component {
   signUp = (newUser) => {
     fetch('http://localhost:5000/users/new', {
       method: 'POST',
-      node: "no-cors",
+      mode: "no-cors",
       headers: {
         'Content-Type': 'application/json',
       },
