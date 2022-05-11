@@ -170,3 +170,20 @@ code {
     transform: scaleY(1)
   }
 }
+
+.reaction-icon {
+  border: 1px solid purple;
+  border-radius: 4px;
+  padding-left: 4%;
+  padding-right: 4%;
+  margin-right: 5px;
+}
+
+.reaction-icon-active {
+  border: 1px solid purple;
+  border-radius: 4px;
+  padding-left: 4%;
+  padding-right: 4%;
+  margin-right: 5px;
+  background-color: rgb(176, 78, 176);
+}
