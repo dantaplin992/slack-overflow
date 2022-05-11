@@ -73,6 +73,10 @@ class Message extends React.Component {
     return elements
   }
 
+  deleteButton() {
+    return (<button onClick={() => {this.props.emitDelete(this.props.messageId)}}>Delete</button>)
+  }
+
   render = () => {
     const {text: msg, timeStamp: time } = this.props
     const { firstName, lastName, displayName, icon } = this.props.authorId
@@ -82,30 +86,35 @@ class Message extends React.Component {
           <img className='w-10 h-10 mt-2 mb-2 rounded-md shadow-lq' src={icon}/>
         </div>
         <div className='flex-col'>
-        <div className='chat-user'>
-         {this.state.author.displayName}
-         <span className='chat-timeSince'><Moment fromNow>
-          {time}
-          </Moment></span>
+          <div className='chat-user'>
+            {this.state.author.displayName}
+            <span className='chat-timeSince'>
+              <Moment fromNow>
+                {time}
+              </Moment>
+              <span className="edit-delete-buttons">
+                {this.deleteButton()}
+              </span>
+            </span>
+          </div>
+          {/* <div>
+            <Moment format="dddd Do MMMM">
+            {time}
+            </Moment>
+          </div> */}
+          <div className='chat-message'>
+            {msg}
+          </div>
+          <div>
+            {this.reactionElements()}
+          </div>
+          <div>
+            <button onClick={() => { this.addReaction("❤️") }} key="heart" >❤️</button>
+            <button onClick={() => { this.addReaction("😂") }} key="laugh" >😂</button>
+            <button onClick={() => { this.addReaction("👍") }} key="up" >👍</button>
+            <button onClick={() => { this.addReaction("👎") }} key="down" >👎</button>
+          </div>
         </div>
-        {/* <div>
-          <Moment format="dddd Do MMMM">
-          {time}
-          </Moment>
-        </div> */}
-        <div className='chat-message'>
-       {msg}
-        </div>
-        <div>
-          {this.reactionElements()}
-        </div>
-        <div>
-          <button onClick={() => { this.addReaction("❤️") }} key="heart" >❤️</button>
-          <button onClick={() => { this.addReaction("😂") }} key="laugh" >😂</button>
-          <button onClick={() => { this.addReaction("👍") }} key="up" >👍</button>
-          <button onClick={() => { this.addReaction("👎") }} key="down" >👎</button>
-        </div>
-      </div>
       </div>
     )
   }
