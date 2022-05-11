@@ -26,6 +26,7 @@ class App extends React.Component {
 
     fetch('http://localhost:5000/sessions/new', {
       method: 'POST',
+      mode: "cors",
       headers: {
         'Content-Type': 'application/json',
       },
@@ -64,6 +65,7 @@ class App extends React.Component {
   signUp = (newUser) => {
     fetch('http://localhost:5000/users/new', {
       method: 'POST',
+      node: "cors",
       headers: {
         'Content-Type': 'application/json',
       },
