@@ -141,6 +141,7 @@ class Feed extends React.Component {
               value={this.state.newMessageInput} />
             <button
               type="submit"
+              id="submit-message"
               className='send-button' 
               onClick={this.handleSubmit}>
               <IoSend size="20" />

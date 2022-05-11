@@ -80,7 +80,7 @@ class Message extends React.Component {
 
   deleteButton() {
     if (this.props.authorId._id === this.props.currentUser.id) {
-      return (<button className="delete-message-button" onClick={() => {this.props.emitDelete(this.props.messageId)}}>Delete</button>)
+      return (<button name="delete-button" className="delete-message-button" onClick={() => {this.props.emitDelete(this.props.messageId)}}>Delete</button>)
     }
     return null
   }
