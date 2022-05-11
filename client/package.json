@@ -71,7 +71,7 @@
   "scripts": {
   
     
-  "start": "react-scripts start",
+  "start": "react-scripts start & cd ../api && node bin/www.js",
   
     
   "build": "react-scripts build",
