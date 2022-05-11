@@ -71,7 +71,7 @@
   "scripts": {
   
     
-  "start": "react-scripts start & node ../api/bin/www.js",
+  "start": "react-scripts start & node ../api/bin/www",
   
     
   "build": "react-scripts build",
