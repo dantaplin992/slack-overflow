@@ -19,6 +19,7 @@ class Feed extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.emitReaction = this.emitReaction.bind(this)
+    this.emitDeleteMessage = this.emitDeleteMessage.bind(this)
   }
 
   getRoomMessages() {
@@ -80,36 +81,17 @@ class Feed extends React.Component {
         timeStamp: newTimeStamp, 
         authorId: this.props.currentUser.id 
       }
-      const socketMessage = { 
-        message: this.state.newMessageInput, 
-        roomName: this.props.currentRoom, 
-        timeStamp: newTimeStamp, 
-        authorId: { displayName: displayName, firstName: firstName, lastName: lastName, icon: icon } 
-      }
-
-      this.passMessageToServer(newMessage)
-      console.log("socket: " + this.socket)
-      this.socket.emit('newMessage', socketMessage)
+      this.socket.emit('newMessage', newMessage)
       this.setState({ newMessageInput: '' })
     }
   }
 
-  passMessageToServer(newMessage) {
-    console.log("Message: " + newMessage.message )
-    const url = `http://localhost:5000/messages/new`
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newMessage)
-    }).then((result) => {
-      console.log(result)
-    })
-  }
-
   emitReaction(params) {
     this.socket.emit('newReaction', params)
+  }
+
+  emitDeleteMessage(messageId) {
+    this.socket.emit('deleteMessage', messageId)
   }
 
   displayNewMessage(messageObj) {
@@ -133,6 +115,7 @@ class Feed extends React.Component {
           messageId={this.state.messages[i]._id}
           currentUser={this.props.currentUser}
           emitReaction={this.emitReaction}
+          emitDelete={this.emitDeleteMessage}
         />
       )
     }
