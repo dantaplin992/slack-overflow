@@ -73,7 +73,8 @@ class Message extends React.Component {
   }
 
   render = () => {
-    const {text: msg, timeStamp: time } = this.props
+    const {text: msg, timeStamp: time, imageUrl } = this.props
+    console.log('message image url: ', imageUrl)
     const { firstName, lastName, displayName, icon } = this.props.authorId
     return (
       <div className='chat-container text-gray-400'>
@@ -93,6 +94,7 @@ class Message extends React.Component {
           </Moment>
         </div> */}
         <div className='chat-message'>
+          <img src={imageUrl} className='w-full h-full'/>
        {msg}
         </div>
         <div>
