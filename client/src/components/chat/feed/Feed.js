@@ -3,7 +3,8 @@ import Message from './Message'
 import io from 'socket.io-client'
 import { IoSend } from "react-icons/io5";
 import { BsImage, BsFillEmojiDizzyFill, BsCodeSlash } from "react-icons/bs";
-import { AiOutlineFileGif } from "react-icons/ai";
+import { AiOutlineFileGif } from "react-icons/ai"
+import equal from 'fast-deep-equal'
 
 class Feed extends React.Component {
   constructor(props) {
@@ -59,7 +60,7 @@ class Feed extends React.Component {
       this.displayNewMessage(params)
     })
 
-    this.socket.on('displayNewReaction', (params) => {
+    this.socket.on('refreshMessages', () => {
       this.getRoomMessages()
     })
   }
@@ -189,11 +190,16 @@ class Feed extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props.currentRoom != prevProps.currentRoom) {
+    if (this.props.currentRoom != prevProps.currentRoom) {
       console.log(`leaving room: ${prevProps.currentRoom}`)
       console.log(`joining room: ${this.props.currentRoom}`)
       this.socket.emit('joinNewRoom', this.props.currentRoom)
       this.getRoomMessages()
+    }
+
+    if (!equal(this.props.currentUser, prevProps.currentUser)) {
+      this.getRoomMessages()
+      this.socket.emit('nameChange')
     }
   }
 }

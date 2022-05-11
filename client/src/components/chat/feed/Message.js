@@ -7,7 +7,8 @@ class Message extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      reactions: this.props.reactions
+      reactions: this.props.reactions,
+      author: this.props.authorId
     }
   }
 
@@ -82,7 +83,7 @@ class Message extends React.Component {
         </div>
         <div className='flex-col'>
         <div className='chat-user'>
-         {displayName}
+         {this.state.author.displayName}
          <span className='chat-timeSince'><Moment fromNow>
           {time}
           </Moment></span>
@@ -112,6 +113,9 @@ class Message extends React.Component {
   componentDidUpdate(prevProps) {
     if (!equal(prevProps.reactions, this.props.reactions)) {
       this.setState({ reactions: this.props.reactions })
+    }
+    if (!equal(prevProps.authorId, this.props.authorId)) {
+      this.setState({ author: this.props.authorId })
     }
   }
 
