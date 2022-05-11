@@ -41,7 +41,7 @@ function chat(io) {
         { _id: params.messageId },
         { reactions: params.newReactions }
       ).then(() => {
-        io.to(currentRoom).emit('displayNewReaction', params)
+        io.to(currentRoom).emit('refreshMessages')
       })
     })
 

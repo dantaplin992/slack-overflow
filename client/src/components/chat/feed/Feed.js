@@ -60,10 +60,6 @@ class Feed extends React.Component {
       this.displayNewMessage(params)
     })
 
-    this.socket.on('displayNewReaction', (params) => {
-      this.getRoomMessages()
-    })
-
     this.socket.on('refreshMessages', () => {
       this.getRoomMessages()
     })
