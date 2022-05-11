@@ -44,6 +44,10 @@ function chat(io) {
         io.to(currentRoom).emit('displayNewReaction', params)
       })
     })
+
+    socket.on('nameChange', (roomName) => {
+      io.to(currentRoom).emit('refreshMessages')
+    })
   })
 }
 

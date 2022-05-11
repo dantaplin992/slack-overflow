@@ -63,6 +63,10 @@ class Feed extends React.Component {
     this.socket.on('displayNewReaction', (params) => {
       this.getRoomMessages()
     })
+
+    this.socket.on('refreshMessages', () => {
+      this.getRoomMessages()
+    })
   }
 
   handleChange(event) {
@@ -199,6 +203,7 @@ class Feed extends React.Component {
 
     if (!equal(this.props.currentUser, prevProps.currentUser)) {
       this.getRoomMessages()
+      this.socket.emit('nameChange')
     }
   }
 }
