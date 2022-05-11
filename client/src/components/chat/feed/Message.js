@@ -53,6 +53,7 @@ class Message extends React.Component {
     let uniqueEmojis = []
     let uniqueEmojiCount = []
     let elements = []
+    let myReaction = ''
     for (let i in this.state.reactions) {
       if (uniqueEmojis.includes(this.state.reactions[i].emoji)) {
         let countIndex = uniqueEmojis.indexOf(this.state.reactions[i].emoji)
@@ -61,10 +62,12 @@ class Message extends React.Component {
         uniqueEmojis.push(this.state.reactions[i].emoji)
         uniqueEmojiCount.push(1)
       }
+      if (this.state.reactions[i].userId === this.props.currentUser.id) myReaction = this.state.reactions[i].emoji
     }
     for (let i in uniqueEmojis) {
+      let elementClass = uniqueEmojis[i] === myReaction ? "reaction-icon-active" : "reaction-icon"
       let emojiDisplayNumber = uniqueEmojiCount[i] > 1 ? uniqueEmojiCount[i] : ''
-      elements.push(<span><span>{uniqueEmojis[i]}</span><span>{emojiDisplayNumber}</span></span>)
+      elements.push(<span className={elementClass} key={i}><span>{uniqueEmojis[i]}</span><span>{emojiDisplayNumber}</span></span>)
     }
     return elements
   }
@@ -91,10 +94,10 @@ class Message extends React.Component {
           {this.reactionElements()}
         </div>
         <div>
-          <button onClick={() => { this.addReaction("❤️") }}>❤️</button>
-          <button onClick={() => { this.addReaction("😂") }}>😂</button>
-          <button onClick={() => { this.addReaction("👍") }}>👍</button>
-          <button onClick={() => { this.addReaction("👎") }}>👎</button>
+          <button onClick={() => { this.addReaction("❤️") }} key="heart" >❤️</button>
+          <button onClick={() => { this.addReaction("😂") }} key="laugh" >😂</button>
+          <button onClick={() => { this.addReaction("👍") }} key="up" >👍</button>
+          <button onClick={() => { this.addReaction("👎") }} key="down" >👎</button>
         </div>
       </div>
     )
