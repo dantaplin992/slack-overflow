@@ -20,6 +20,7 @@ class Feed extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.emitReaction = this.emitReaction.bind(this)
     this.emitDeleteMessage = this.emitDeleteMessage.bind(this)
+    this.emitEditMessage = this.emitEditMessage.bind(this)
   }
 
   getRoomMessages() {
@@ -94,6 +95,10 @@ class Feed extends React.Component {
     this.socket.emit('deleteMessage', messageId)
   }
 
+  emitEditMessage(messageId, newText) {
+    this.socket.emit('editMessage', { messageId: messageId, newText: newText})
+  }
+
   displayNewMessage(messageObj) {
     const currentMessages = this.state.messages
     const newMessages = []
@@ -116,6 +121,7 @@ class Feed extends React.Component {
           currentUser={this.props.currentUser}
           emitReaction={this.emitReaction}
           emitDelete={this.emitDeleteMessage}
+          emitEdit={this.emitEditMessage}
         />
       )
     }
