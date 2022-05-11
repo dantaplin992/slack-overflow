@@ -105,6 +105,7 @@ class Message extends React.Component {
           <button onClick={() => { this.addReaction("👎") }} key="down" >👎</button>
         </div>
       </div>
+      </div>
     )
   }
 
