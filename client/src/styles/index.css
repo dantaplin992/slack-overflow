@@ -128,7 +128,7 @@
 
   .bannerDropdownList {
     @apply bg-gray-800 text-gray-400 text-sm flex flex-col mt-0 mr-0
-    shadow-lg
+    shadow-lg 
   }
 
   .edgeGlow {

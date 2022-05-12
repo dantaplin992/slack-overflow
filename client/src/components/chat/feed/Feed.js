@@ -171,7 +171,7 @@ class Feed extends React.Component {
                               absolute bottom-8 left-0
                             bg-gray-600
                               scale-0 group-hover:scale-100
-                              transition-all duration-300 origin-bottom ease-in-out
+                              transition-all duration-300 origin-bottom-left ease-in-out
                               rounded-md">
                 <ImageUpload currentUser={this.props.currentUser} getUrl={this.getUrl} />
               </span>
