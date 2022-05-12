@@ -18,7 +18,7 @@ const MessageController = {
   },
   New: (req, res) => {
     const message = new Message(req.body)
-    console.log(message)
+    console.log('this is a new message: ', message)
     message.save((err) => {
       if (err) throw err
     })

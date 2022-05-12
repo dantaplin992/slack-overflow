@@ -1,2 +1,4 @@
 # testing
 /coverage
+/node-modules
+../node_modules

@@ -28,7 +28,7 @@ function Banner({ currentUser, logoutFunction, loginFunction, currentRoom }) {
   return (
     <div className='Banner'>
       <div className="bannerRoom">
-        <h1>#{ currentRoom }</h1>
+        <h1># { currentRoom }</h1>
       </div>
        <div>
         <button type="button" className='bannerProfile' onClick={toggleDropdown}>
