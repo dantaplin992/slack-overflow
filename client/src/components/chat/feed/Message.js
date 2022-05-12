@@ -12,8 +12,13 @@ class Message extends React.Component {
     super(props)
     this.state = {
       reactions: this.props.reactions,
-      author: this.props.authorId
+      author: this.props.authorId,
+      editing: false,
+      editedText: this.props.text,
     }
+
+    this.handleEditing = this.handleEditing.bind(this)
+    this.editBoxChange = this.editBoxChange.bind(this)
   }
 
   alreadyReacted() {
@@ -77,6 +82,41 @@ class Message extends React.Component {
     return elements
   }
 
+  deleteButton() {
+    if (this.props.authorId._id === this.props.currentUser.id) {
+      return (<button className="delete-message-button" onClick={() => {this.props.emitDelete(this.props.messageId)}}>Delete</button>)
+    }
+    return null
+  }
+
+  handleEditing() {
+    if (this.state.editing) {
+      this.props.emitEdit(this.props.messageId, this.state.editedText)
+      this.setState({ editing: false })
+      console.log("Saving changes")
+    } else {
+      this.setState({ editing: true })
+      console.log("Editing message")
+    }
+  }
+
+  editBoxChange(event) {
+    this.setState({ editedText: event.target.value })
+  }
+
+  editButton() {
+    if (this.props.authorId._id === this.props.currentUser.id) {
+      return (<button className="delete-message-button" onClick={this.handleEditing}>{this.state.editing ? "Save" : "Edit"}</button>)
+    }
+    return null
+  }
+
+  editBox(msg) {
+    return (
+      <textarea onChange={this.editBoxChange} value={this.state.editedText}/>
+    )
+  }
+
   render = () => {
     const {text: msg, timeStamp: time } = this.props
     const { firstName, lastName, displayName, icon } = this.props.authorId
@@ -90,7 +130,12 @@ class Message extends React.Component {
          {this.state.author.displayName}
          <span className='chat-timeSince'><Moment fromNow>
           {time}
-          </Moment></span>
+          </Moment>
+              <span className="edit-delete-buttons">
+                {this.deleteButton()}
+                {this.editButton()}
+              </span>
+          </span>
         </div>
         {/* <div>
           <Moment format="dddd Do MMMM">
@@ -98,7 +143,7 @@ class Message extends React.Component {
           </Moment>
         </div> */}
         <div className='chat-message'>
-          {msg}
+           {this.state.editing ? this.editBox(msg) : msg}
         <div className='chat-reaction'>
           {this.reactionElements()}
         </div>

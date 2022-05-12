@@ -30,8 +30,12 @@ function chat(io) {
     // Sending & receiving messages in React client app
 
     socket.on('newMessage', (newMessage) => {
-
-      io.to(currentRoom).emit('displayNewMessage', newMessage)
+      console.log(newMessage)
+      const message = new Message(
+        newMessage
+        ).save().then(() => {
+        io.to(currentRoom).emit('refreshMessages')
+      })
     })
 
     socket.on('newReaction', (params) => {
@@ -47,6 +51,24 @@ function chat(io) {
 
     socket.on('nameChange', (roomName) => {
       io.to(currentRoom).emit('refreshMessages')
+    })
+
+    socket.on('deleteMessage', (messageId) => {
+      console.log(`DELETE MESSAGE: ${messageId}`)
+      Message.deleteOne(
+        { _id: messageId}
+      ).then(() => {
+        io.to(currentRoom).emit('refreshMessages')
+      })
+    })
+
+    socket.on('editMessage', (params) => {
+      Message.updateOne(
+        { _id: params.messageId },
+        { message: params.newText }
+      ).then(() => {
+        io.to(currentRoom).emit('refreshMessages')
+      })
     })
   })
 }

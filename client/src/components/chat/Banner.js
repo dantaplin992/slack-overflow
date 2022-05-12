@@ -14,7 +14,7 @@ function Banner({ currentUser, logoutFunction, loginFunction, currentRoom }) {
                                     setAnimationClass("banner_dropdown")
                                   } else {
                                     setAnimationClass("banner_dropdownreverse")
-                                 }}
+                                  } }
 
   const dropdownProps = { logoutFunction, currentUser, animationClass, toggleEditProfileModal }
 
@@ -31,18 +31,18 @@ function Banner({ currentUser, logoutFunction, loginFunction, currentRoom }) {
         <h1># { currentRoom }</h1>
       </div>
        <div>
-           <button type="button" className='bannerProfile' onClick={toggleDropdown}>
-           <img className="w-6 h-6 mr-2 rounded-full shadow-lq" src={icon}/>
-           {displayName}
-       </button>
+        <button type="button" className='bannerProfile' onClick={toggleDropdown}>
+          <img className="w-6 h-6 mr-2 rounded-full shadow-lq" src={icon}/>
+          {displayName}
+        </button>
       <DropdownMenu {...dropdownProps}/>
       </div>
-      { showEditProfileModal ? <EditProfile currentUser = {currentUser}
+      {showEditProfileModal ? <EditProfile currentUser = {currentUser}
                                             toggleEditProfileModal={toggleEditProfileModal}
                                             loginFunction={loginFunction}
                                             logoutFunction={logoutFunction}
-                                            />: null }
-      </div>
+                                            /> : null}
+    </div>
   )
 }
 
