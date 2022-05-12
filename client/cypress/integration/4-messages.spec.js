@@ -28,12 +28,18 @@ describe("Messages", () => {
         cy.contains("Testing the edit button!")
         cy.get('textarea').clear().type("Edit messages works!")
         cy.get('button[name="edit-button"]').click()
+        cy.contains("Edit messages works!")
 
         //react, change and unreact to a message
-        cy.contains("Edit messages works!")
-        cy.get('button[name="heart"]').click()
-        cy.get('button[name="laugh"]').click()
-        cy.get('button[name="laugh"]').click()
+        cy.get('[class*="chat-reaction-icon"]')
+        cy.get('button[name="heart"]').click({ force: true })
+
+        cy.get('[class*="chat-reaction-icon"]')
+        cy.get('button[name="laugh"]').click({ force: true })
+
+        cy.get('[class*="chat-reaction-icon"]')
+        cy.get('button[name="laugh"]').click({ force: true })
+
     })
 
 })
