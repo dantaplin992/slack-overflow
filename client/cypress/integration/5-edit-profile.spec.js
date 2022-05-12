@@ -1,16 +1,13 @@
 describe("Edit profile", () => {
     it("loads successfully", () => {
         cy.visit('http://localhost:3000')
-    })
-
-    it("allows a user to edit their profile", () => {
-
-        //logs in
         cy.get('input[name="email"]').type("homer@test.com")
         cy.get('input[name="password"]').type("password")
         cy.get('input[type="submit"]').click()
         cy.contains("General")
+    })
 
+    it("allows a user to edit their profile", () => {
         //clicks edit profile and amends
         cy.get('button[type="button"]').click()
         cy.get('button[name="edit"]').click()
