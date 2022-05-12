@@ -38,8 +38,7 @@ function ImageUpload({ getUrl, currentUser }) {
         onChange={(event) => {
           setImageUpload(event.target.files[0]);
         }}
-      />
-      
+      />    
       <button className="upload-button" onClick={uploadFile}>{<BiUpload size="28"/>}</button>
       </>
       ) : null }

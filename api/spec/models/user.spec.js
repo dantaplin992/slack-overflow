@@ -11,27 +11,52 @@ describe("User model", () => {
     });
 
     it("has a first name", () => {
-        var user = new User({ firstName: "Ruby" });
-        expect(user.firstName).toEqual("Ruby");
+        var user = new User({ firstName: "Ruby" })
+        expect(user.firstName).toEqual("Ruby")
       });
 
     it("has a last name", () => {
-        var user = new User({ lastName: "Ranford" });
-        expect(user.lastName).toEqual("Ranford");
+        var user = new User({ lastName: "Ranford" })
+        expect(user.lastName).toEqual("Ranford")
     });
 
     it("has a display name", () => {
-        var user = new User({ displayName: "Display name test" });
-        expect(user.displayName).toEqual("Display name test");
+        var user = new User({ displayName: "Display name test" })
+        expect(user.displayName).toEqual("Display name test")
     });
 
     it("has an icon url", () => {
-        var user = new User({ icon: "myiconurl" });
-        expect(user.icon).toEqual("myiconurl");
+        var user = new User({ icon: "myiconurl" })
+        expect(user.icon).toEqual("myiconurl")
     });
 
     it("has a password", () => {
-        var user = new User({ password: "password" });
-        expect(user.password).toEqual("password");
+        var user = new User({ password: "password" })
+        expect(user.password).toEqual("password")
+    });
+
+    it("has an email", () => {
+      var user = new User({ email: "test@test.com"})
+      expect(user.email).toEqual("test@test.com")
+    })
+
+    it("can save a user", (done) => {
+      const user = new User({
+        email: "test@test.com",
+        password: "password",
+      });
+  
+      user.save((err) => {
+        expect(err).toBeNull();
+        User.find((err, users) => {
+          expect(err).toBeNull();
+  
+          expect(users[0]).toMatchObject({
+            email: "test@test.com",
+            password: "password",
+          });
+          done();
+        });
+      });
     });
 });
