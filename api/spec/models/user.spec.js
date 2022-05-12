@@ -39,4 +39,24 @@ describe("User model", () => {
       var user = new User({ email: "test@test.com"})
       expect(user.email).toEqual("test@test.com")
     })
+
+    it("can save a user", (done) => {
+      const user = new User({
+        email: "test@test.com",
+        password: "password",
+      });
+  
+      user.save((err) => {
+        expect(err).toBeNull();
+        User.find((err, users) => {
+          expect(err).toBeNull();
+  
+          expect(users[0]).toMatchObject({
+            email: "test@test.com",
+            password: "password",
+          });
+          done();
+        });
+      });
+    });
 });

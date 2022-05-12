@@ -46,11 +46,11 @@ describe("Message model", () => {
         expect(message.reactions[0].emoji).toEqual("😊")
     })
 
-    it("shows a reply to a message", () => {
-        const mockMessage = new Message({ message: "mock message" })
-        var message = new Message({ isReplyTo: mockMessage})
-        expect(message.isReplyTo).toEqual(mockMessage)
-    })
+    // it("shows a reply to a message", () => {
+    //     const mockMessage = new Message({ message: "mock message" })
+    //     var message = new Message({ isReplyTo: mockMessage})
+    //     expect(message.isReplyTo).toEqual(mockMessage)
+    // })
 
     it("has the time of post creation", () => {
         const mockDateObject = new Date("2022-04-20T13:33:42.767Z")
