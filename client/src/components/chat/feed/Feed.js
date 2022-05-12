@@ -128,7 +128,7 @@ class Feed extends React.Component {
 
     return (
       <div className='Feed'>
-        <p>{this.props.currentRoom}</p>
+        <p className='text-transparent'>{this.props.currentRoom}</p>
 
         {messageComponents}
         <form>
