@@ -5,7 +5,9 @@ import equal from 'fast-deep-equal'
 import {AiOutlineHeart} from "react-icons/ai";
 import {RiEmotionLaughLine} from "react-icons/ri";
 import {FiThumbsUp, FiThumbsDown} from "react-icons/fi";
-
+import {BsPencil} from "react-icons/bs";
+import {GiSaveArrow} from "react-icons/gi";
+import {MdOutlineDeleteForever} from "react-icons/md";
 
 class Message extends React.Component {
   constructor(props) {
@@ -84,7 +86,7 @@ class Message extends React.Component {
 
   deleteButton() {
     if (this.props.authorId._id === this.props.currentUser.id) {
-      return (<button className="delete-message-button" onClick={() => {this.props.emitDelete(this.props.messageId)}}>Delete</button>)
+      return (<button className="chat-reaction-icon" onClick={() => {this.props.emitDelete(this.props.messageId)}}>{<MdOutlineDeleteForever size="18" />}</button>)
     }
     return null
   }
@@ -106,7 +108,7 @@ class Message extends React.Component {
 
   editButton() {
     if (this.props.authorId._id === this.props.currentUser.id) {
-      return (<button className="delete-message-button" onClick={this.handleEditing}>{this.state.editing ? "Save" : "Edit"}</button>)
+      return (<button className="chat-reaction-icon" onClick={this.handleEditing}>{this.state.editing ? <GiSaveArrow size="18" /> : <BsPencil size="16" />}</button>)
     }
     return null
   }
@@ -132,11 +134,10 @@ class Message extends React.Component {
          <span className='chat-timeSince'><Moment fromNow>
           {time}
           </Moment>
-              <span className="edit-delete-buttons">
-                {this.deleteButton()}
-                {this.editButton()}
-              </span>
+          
           </span>
+            
+          
         </div>
         {/* <div>
           <Moment format="dddd Do MMMM">
@@ -145,9 +146,9 @@ class Message extends React.Component {
         </div> */}
         <div className='chat-message'>
           {imageUrl != '' ? <img src={imageUrl} className='w-full h-full'/> : null } 
-          {this.state.editing ? this.editBox(msg) : msg}
+          {this.state.editing ? this.editBox(msg) : msg} 
         <div className='chat-reaction'>
-          {this.reactionElements()}
+          {this.reactionElements()} 
         </div>
         </div>
         <div className="chat-reaction-bar group-hover:scale-100">
@@ -155,7 +156,12 @@ class Message extends React.Component {
           <button className="chat-reaction-icon" onClick={() => { this.addReaction("😂") }} key="laugh" >{<RiEmotionLaughLine size="18" />}</button>
           <button className="chat-reaction-icon" onClick={() => { this.addReaction("👍") }} key="up" >{<FiThumbsUp size="18" />}</button>
           <button className="chat-reaction-icon" onClick={() => { this.addReaction("👎") }} key="down" >{<FiThumbsDown size="18" />}</button>
+          <span className='chat-edit-delete-bar group-hover:scale-100'>
+              {this.deleteButton()}
+              {this.editButton()}
+            </span>
         </div>
+        
       </div>
       </div>
     )

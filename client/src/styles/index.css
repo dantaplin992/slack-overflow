@@ -146,7 +146,7 @@
   }
 
   .chat-user {
-    @apply relative
+    @apply relative w-full 
     bg-transparent
     mt-1 h-4
     font-bold
@@ -154,7 +154,7 @@
   }
 
   .chat-message {
-    @apply relative 
+    @apply relative
     mt-2 mb-1 pr-2 
     bg-transparent
     h-auto
@@ -169,7 +169,15 @@
 
   .chat-reaction-bar {
     @apply flex flex-row justify-center items-center
-    absolute right-5 top-2
+    absolute right-5 top-1
+    bg-gray-800
+    transition-all duration-300 scale-0 origin-bottom ease-in-out
+    rounded-md
+  }
+
+  .chat-edit-delete-bar {
+    @apply flex flex-row justify-center items-center
+    
     bg-gray-800
     transition-all duration-300 scale-0 origin-bottom ease-in-out
     rounded-md
@@ -177,7 +185,7 @@
 
   .chat-reaction-icon {
     @apply relative flex items-center justify-center
-    h-5 w-5 mt-0.5 mb-0.5 ml-1 mr-1
+    h-6 w-6 mt-0.5 mb-0.5 ml-1 mr-1
     bg-gray-800 text-gray-500
     hover:bg-purple-500 hover:text-white
     rounded-md
@@ -266,10 +274,6 @@ code {
   background-color: rgb(144, 90, 144);
 }
 
-.delete-message-button {
-  border: 1px solid purple;
-  border-radius: 4px;
-}
 
 @tailwind utilities;
 
