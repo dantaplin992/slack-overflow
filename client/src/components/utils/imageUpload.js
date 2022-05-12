@@ -39,7 +39,7 @@ function ImageUpload({ getUrl, currentUser }) {
           setImageUpload(event.target.files[0]);
         }}
       />
-      <button onClick={uploadFile}> Upload Image</button>
+      <button name="image" onClick={uploadFile}> Upload Image</button>
       </>
       ) : null }
       
