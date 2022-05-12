@@ -55,7 +55,7 @@ class Login extends React.Component {
            </div>
         <div className="mt-5">
           <p className="text-center text-gray-500 text-xs">Don't have an account?</p>
-          <button className="text-center text-gray-500 hover:text-purple-600 transition duration-1000 text-xs"
+          <button id="signup-btn" className="text-center text-gray-500 hover:text-purple-600 transition duration-1000 text-xs"
                   onClick={signUp}>Sign Up</button>
         </div>
        </form>

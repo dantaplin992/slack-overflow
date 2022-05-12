@@ -13,10 +13,10 @@ function DropdownMenu({ currentUser, logoutFunction, animationClass, toggleEditP
               {email}
            </li>
            <li className='bannerProfile'>
-             {<button onClick={toggleEditProfileModal}>Edit Profile</button>}
+             {<button name="edit" onClick={toggleEditProfileModal}>Edit Profile</button>}
            </li>
            <li className='bannerProfile'>
-             {<button onClick={logoutFunction}>Logout</button>}
+             {<button name="logout" onClick={logoutFunction}>Logout</button>}
            </li>
          </ul>
        </div>
