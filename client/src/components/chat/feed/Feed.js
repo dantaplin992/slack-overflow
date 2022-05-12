@@ -96,10 +96,10 @@ class Feed extends React.Component {
       this.setState({ newMessageInput: '' })
     }
 
-      setTimeout(() => {
-        this.scrollToBottom('smooth')
-      }
-      , 1000)
+      // setTimeout(() => {
+      //   this.scrollToBottom('smooth')
+      // }
+      // , 1000)
   }
 
   scrollToBottom(behavior) {
@@ -210,13 +210,16 @@ class Feed extends React.Component {
     }
     , 1000)
   }
-  
-  componentDidUpdate(prevProps) {
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.currentRoom != prevProps.currentRoom) {
       console.log(`leaving room: ${prevProps.currentRoom}`)
       console.log(`joining room: ${this.props.currentRoom}`)
       this.socket.emit('joinNewRoom', this.props.currentRoom)
       this.getRoomMessages()
+    }
+    if (prevState.messages.length !== this.state.messages.length) {
+        this.scrollToBottom('smooth')
     }
   }
 }
