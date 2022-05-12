@@ -17,7 +17,7 @@ chat(io)
  * Connect to MongoDB
  **/
 
- var mongoDbUrl = process.env.MONGODB_URL || "mongodb+srv://Overflow:Sl4ck0v3rfl0w@slack-overflow-remote.4cggl.mongodb.net/test";
+ var mongoDbUrl = process.env.MONGODB_URL || "mongodb+srv://Overflow:Sl4ck0v3rfl0w@slack-overflow-remote.4cggl.mongodb.net/slack-overflow";
  mongoose.connect(mongoDbUrl, {
    useNewUrlParser: true,
    useUnifiedTopology: true,
