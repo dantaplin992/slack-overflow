@@ -25,6 +25,7 @@ class Feed extends React.Component {
 
     this.emitDeleteMessage = this.emitDeleteMessage.bind(this)
     this.emitEditMessage = this.emitEditMessage.bind(this)
+    this.scrollToBottom = this.scrollToBottom.bind(this)
   }
 
   getRoomMessages() {
@@ -94,8 +95,16 @@ class Feed extends React.Component {
       
       this.setState({ newMessageInput: '' })
     }
-    const element = document.getElementById('feed')
-    element.scrollTop = element.scrollHeight
+
+      // setTimeout(() => {
+      //   this.scrollToBottom('smooth')
+      // }
+      // , 1000)
+  }
+
+  scrollToBottom(behavior) {
+    const element = document.getElementById("feed")
+    element.scrollTo({ top: element.scrollHeight, behavior: `${behavior}` })
   }
 
   emitReaction(params) {
@@ -137,13 +146,14 @@ class Feed extends React.Component {
         />
       )
     }
-
+   
     return (
+      <div>
       <div className='Feed' id="feed">
-        <p className='text-transparent'>{this.props.currentRoom}</p>
-
+        <div id="messages" className="messages">
         {messageComponents}
-
+        </div>
+        <p className='text-transparent'>{this.props.currentRoom}</p>
           <div className='bottom-bar'>
               <input
               id='messageInput' 
@@ -194,8 +204,8 @@ class Feed extends React.Component {
               <BsCodeSlash size="20" />
             </button>
             </div>
-          </div>
-          <div id="bottom"></div>        
+          </div>       
+      </div>
       </div>
       
     )
@@ -204,21 +214,21 @@ class Feed extends React.Component {
   componentDidMount() {
     if (!this.socket) this.socketConnect()
     this.getRoomMessages()
-    const element = document.getElementById('bottom')
-    element.scrollTop = element.scrollHeight
+    setTimeout(() => {
+      this.scrollToBottom('auto')
+    }
+    , 1000)
   }
-  
-  componentDidUpdate(prevProps) {
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.currentRoom != prevProps.currentRoom) {
       console.log(`leaving room: ${prevProps.currentRoom}`)
       console.log(`joining room: ${this.props.currentRoom}`)
       this.socket.emit('joinNewRoom', this.props.currentRoom)
-      this.getRoomMessages()  
-    }
-
-    if (!equal(this.props.currentUser, prevProps.currentUser)) {
       this.getRoomMessages()
-      this.socket.emit('nameChange')
+    }
+    if (prevState.messages.length !== this.state.messages.length) {
+        this.scrollToBottom('smooth')
     }
   }
 }

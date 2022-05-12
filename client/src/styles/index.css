@@ -213,6 +213,10 @@
 
 }
 
+/* .messages {
+  overflow-y: scroll;
+} */
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -291,11 +295,11 @@ code {
 
 @tailwind utilities;
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   background-color: transparent;
   color:transparent
 }
 
 ::-webkit-scrollbar-thumb {
   @apply bg-transparent dark:bg-purple-400;
-}
+} */
