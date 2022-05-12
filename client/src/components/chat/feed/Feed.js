@@ -28,8 +28,6 @@ class Feed extends React.Component {
     const url = `http://localhost:5000/messages/room/${this.props.currentRoom}`
     fetch(url, {
       method: "GET",
-      mode: 'no-cors',
-      credentials: 'include',
     }
     ).then(res => res.json()
     ).then((data) => {
