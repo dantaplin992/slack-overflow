@@ -102,7 +102,7 @@ class Message extends React.Component {
 
   editButton() {
     if (this.props.authorId._id === this.props.currentUser.id) {
-      return (<button className="delete-message-button" onClick={this.handleEditing}>{this.state.editing ? "Save" : "Edit"}</button>)
+      return (<button name="edit-button" className="delete-message-button" onClick={this.handleEditing}>{this.state.editing ? "Save" : "Edit"}</button>)
     }
     return null
   }
@@ -146,10 +146,10 @@ class Message extends React.Component {
             {this.reactionElements()}
           </div>
           <div>
-            <button onClick={() => { this.addReaction("❤️") }} key="heart" >❤️</button>
-            <button onClick={() => { this.addReaction("😂") }} key="laugh" >😂</button>
-            <button onClick={() => { this.addReaction("👍") }} key="up" >👍</button>
-            <button onClick={() => { this.addReaction("👎") }} key="down" >👎</button>
+            <button name="heart" onClick={() => { this.addReaction("❤️") }} key="heart" >❤️</button>
+            <button name="laugh" onClick={() => { this.addReaction("😂") }} key="laugh" >😂</button>
+            <button name="up" onClick={() => { this.addReaction("👍") }} key="up" >👍</button>
+            <button name="down" onClick={() => { this.addReaction("👎") }} key="down" >👎</button>
           </div>
         </div>
       </div>
