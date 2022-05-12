@@ -162,12 +162,20 @@ class Feed extends React.Component {
             </button>
             <div className='bottom-sub-bar'>
 
-            <ImageUpload currentUser={this.props.currentUser} getUrl={this.getUrl} />
+            
           
             <button
               type="submit"
-              className='bottom-bar-icon'>
+              className='bottom-bar-icon group'>
               <BsImage size="20" />
+              <span className="flex flex-row justify-center items-center
+                              absolute bottom-8 left-0
+                            bg-gray-600
+                              scale-0 group-hover:scale-100
+                              transition-all duration-300 origin-bottom-left ease-in-out
+                              rounded-md">
+                <ImageUpload currentUser={this.props.currentUser} getUrl={this.getUrl} />
+              </span>
             </button>
 
             <button
