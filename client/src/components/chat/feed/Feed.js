@@ -4,7 +4,8 @@ import io from 'socket.io-client'
 import ImageUpload from '../../utils/imageUpload';
 import { IoSend } from "react-icons/io5";
 import { BsImage, BsFillEmojiDizzyFill, BsCodeSlash } from "react-icons/bs";
-import { AiOutlineFileGif } from "react-icons/ai";
+import { AiOutlineFileGif } from "react-icons/ai"
+import equal from 'fast-deep-equal'
 
 class Feed extends React.Component {
   constructor(props) {
@@ -21,6 +22,9 @@ class Feed extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.emitReaction = this.emitReaction.bind(this)
     this.getUrl = this.getUrl.bind(this)
+
+    this.emitDeleteMessage = this.emitDeleteMessage.bind(this)
+    this.emitEditMessage = this.emitEditMessage.bind(this)
   }
 
   getRoomMessages() {
@@ -28,8 +32,6 @@ class Feed extends React.Component {
     const url = `http://localhost:5000/messages/room/${this.props.currentRoom}`
     fetch(url, {
       method: "GET",
-      mode: 'cors',
-      credentials: 'include',
     }
     ).then(res => res.json()
     ).then((data) => {
@@ -62,7 +64,7 @@ class Feed extends React.Component {
       this.displayNewMessage(params)
     })
 
-    this.socket.on('displayNewReaction', (params) => {
+    this.socket.on('refreshMessages', () => {
       this.getRoomMessages()
     })
   }
@@ -84,40 +86,28 @@ class Feed extends React.Component {
       const newMessage = { 
         message: this.state.newMessageInput, 
         roomName: this.props.currentRoom, 
-        timeStamp: newTimeStamp, 
+        timeStamp: newTimeStamp,
         authorId: this.props.currentUser.id,
         imageUrl: this.state.imageUrl }
 
-      const socketMessage = { 
-        message: this.state.newMessageInput, 
-        roomName: this.props.currentRoom, 
-        timeStamp: newTimeStamp,
-        imageUrl: this.state.imageUrl, 
-        authorId: { displayName: displayName, firstName: firstName, lastName: lastName, icon: icon, } 
-      }
-
-      this.passMessageToServer(newMessage)
-      this.socket.emit('newMessage', socketMessage)
+      this.socket.emit('newMessage', newMessage)
+      
       this.setState({ newMessageInput: '' })
     }
     const element = document.getElementById('feed')
     element.scrollTop = element.scrollHeight
   }
 
-  passMessageToServer(newMessage) {
-    const url = `http://localhost:5000/messages/new`
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newMessage)
-    }).then((result) => {
-    })
-  }
-
   emitReaction(params) {
     this.socket.emit('newReaction', params)
+  }
+
+  emitDeleteMessage(messageId) {
+    this.socket.emit('deleteMessage', messageId)
+  }
+
+  emitEditMessage(messageId, newText) {
+    this.socket.emit('editMessage', { messageId: messageId, newText: newText})
   }
 
   displayNewMessage(messageObj) {
@@ -142,13 +132,15 @@ class Feed extends React.Component {
           messageId={this.state.messages[i]._id}
           currentUser={this.props.currentUser}
           emitReaction={this.emitReaction}
+          emitDelete={this.emitDeleteMessage}
+          emitEdit={this.emitEditMessage}
         />
       )
     }
 
     return (
       <div className='Feed' id="feed">
-        <p>{this.props.currentRoom}</p>
+        <p className='text-transparent'>{this.props.currentRoom}</p>
 
         {messageComponents}
 
@@ -208,12 +200,17 @@ class Feed extends React.Component {
   }
   
   componentDidUpdate(prevProps) {
-    if(this.props.currentRoom != prevProps.currentRoom) {
+    if (this.props.currentRoom != prevProps.currentRoom) {
       console.log(`leaving room: ${prevProps.currentRoom}`)
       console.log(`joining room: ${this.props.currentRoom}`)
       this.socket.emit('joinNewRoom', this.props.currentRoom)
+      this.getRoomMessages()  
+    }
+
+    if (!equal(this.props.currentUser, prevProps.currentUser)) {
       this.getRoomMessages()
-    }    
+      this.socket.emit('nameChange')
+    }
   }
 }
 

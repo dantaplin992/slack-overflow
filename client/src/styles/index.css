@@ -79,7 +79,7 @@
 
   .Feed {
     @apply flex flex-col items-start
-    pt-6 ml-0 mx-auto px-0 pb-28
+    pt-6 pl-16 ml-0  px-0 pb-28
     bg-gray-900
     m-0
     h-screen w-full
@@ -101,7 +101,7 @@
   .bannerProfile {
     @apply relative flex flex-row
     items-center justify-center
-    pr-10 pl-10 h-10
+    pr-6 pl-6 h-10
     text-gray-500 text-sm
     hover:bg-purple-500 hover:text-white
     rounded-none
@@ -109,11 +109,17 @@
   }
 
   .bannerRoom {
-    @apply text-gray-400
+    @apply relative flex flex-row
+    items-center justify-center pl-5 
+    text-gray-500 hover:text-gray-300
+    transition-all duration-300 ease-linear
+    cursor-default text-sm
+
   }
 
   .bannerDropdownList {
     @apply bg-gray-800 text-gray-400 text-sm flex flex-col mt-0 mr-0
+    shadow-lg
   }
 
   .edgeGlow {
@@ -128,15 +134,14 @@
 
   .chat-container {
     @apply relative flex flex-row
-    ml-20 w-auto
-   
+    w-full
     bg-transparent text-sm
     h-auto
   }
 
   .chat-profile-container {
     @apply relative flex flex-none
-    w-12 h-auto 
+    w-12 h-auto ml-4
     bg-transparent
   }
 
@@ -150,7 +155,7 @@
 
   .chat-message {
     @apply relative 
-    mt-2 mb-1 pr-2
+    mt-2 mb-1 pr-2 
     bg-transparent
     h-auto
   }
@@ -159,6 +164,29 @@
     @apply font-light
     ml-2 text-xs
     text-gray-400
+    bg-transparent
+  }
+
+  .chat-reaction-bar {
+    @apply flex flex-row justify-center items-center
+    absolute right-5 top-2
+    bg-gray-800
+    transition-all duration-300 scale-0 origin-bottom ease-in-out
+    rounded-md
+  }
+
+  .chat-reaction-icon {
+    @apply relative flex items-center justify-center
+    h-5 w-5 mt-0.5 mb-0.5 ml-1 mr-1
+    bg-gray-800 text-gray-500
+    hover:bg-purple-500 hover:text-white
+    rounded-md
+    transition-all duration-300 ease-linear
+  }
+
+  .chat-reaction {
+    @apply
+    bg-transparent cursor-default mt-1
   }
 
 }
@@ -216,22 +244,32 @@ code {
 }
 
 .reaction-icon {
-  border: 1px solid purple;
+  border: 1px solid rgb(78, 78, 78);
   border-radius: 4px;
-  padding-left: 4%;
-  padding-right: 4%;
-  margin-right: 5px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  margin-right: 2px;
+  margin-left: 2px;
 }
 
 .reaction-icon-active {
-  border: 1px solid purple;
+  border: 1px solid rgb(78, 78, 78);
   border-radius: 4px;
-  padding-left: 4%;
-  padding-right: 4%;
-  margin-right: 5px;
-  background-color: rgb(176, 78, 176);
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  margin-right: 2px;
+  margin-left: 2px;
+  background-color: rgb(144, 90, 144);
 }
 
+.delete-message-button {
+  border: 1px solid purple;
+  border-radius: 4px;
+}
 
 @tailwind utilities;
 
