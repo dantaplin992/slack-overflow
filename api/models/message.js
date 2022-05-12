@@ -16,6 +16,7 @@ const MessageSchema = new mongoose.Schema({
         default: Date.now
     },
     roomName: String,
+    imageUrl: String,
 });
 
 const Message = mongoose.model("Message", MessageSchema);

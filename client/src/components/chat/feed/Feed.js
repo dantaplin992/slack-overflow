@@ -1,6 +1,7 @@
 import React from 'react'
 import Message from './Message'
 import io from 'socket.io-client'
+import ImageUpload from '../../utils/imageUpload';
 import { IoSend } from "react-icons/io5";
 import { BsImage, BsFillEmojiDizzyFill, BsCodeSlash } from "react-icons/bs";
 import { AiOutlineFileGif } from "react-icons/ai"
@@ -13,12 +14,15 @@ class Feed extends React.Component {
       messages: [],
       newMessageInput: '',
       upToDate: false,
+      imageUrl: '',
     }
     this.socket = null
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.emitReaction = this.emitReaction.bind(this)
+    this.getUrl = this.getUrl.bind(this)
+
     this.emitDeleteMessage = this.emitDeleteMessage.bind(this)
     this.emitEditMessage = this.emitEditMessage.bind(this)
   }
@@ -66,7 +70,12 @@ class Feed extends React.Component {
   }
 
   handleChange(event) {
+    event.preventDefault()
     this.setState({ newMessageInput: event.target.value })
+  }
+  
+  getUrl(url) {
+    this.setState({ imageUrl: url })
   }
 
   handleSubmit(event) {
@@ -77,12 +86,16 @@ class Feed extends React.Component {
       const newMessage = { 
         message: this.state.newMessageInput, 
         roomName: this.props.currentRoom, 
-        timeStamp: newTimeStamp, 
-        authorId: this.props.currentUser.id 
-      }
+        timeStamp: newTimeStamp,
+        authorId: this.props.currentUser.id,
+        imageUrl: this.state.imageUrl }
+
       this.socket.emit('newMessage', newMessage)
+      
       this.setState({ newMessageInput: '' })
     }
+    const element = document.getElementById('feed')
+    element.scrollTop = element.scrollHeight
   }
 
   emitReaction(params) {
@@ -110,9 +123,10 @@ class Feed extends React.Component {
     for (let i = 0; i < this.state.messages.length; i++) {
       messageComponents.push(
         <Message 
-          key={i} 
+          key={i}
           authorId={this.state.messages[i].authorId} 
           text={this.state.messages[i].message} 
+          imageUrl={this.state.messages[i].imageUrl}
           timeStamp={this.state.messages[i].timeStamp} 
           reactions={this.state.messages[i].reactions}
           messageId={this.state.messages[i]._id}
@@ -125,18 +139,20 @@ class Feed extends React.Component {
     }
 
     return (
-      <div className='Feed'>
+      <div className='Feed' id="feed">
         <p className='text-transparent'>{this.props.currentRoom}</p>
 
         {messageComponents}
-        <form>
+
           <div className='bottom-bar'>
-            <input 
+              <input
+              id='messageInput' 
               className='bottom-bar-input' 
               type="text" 
               placeholder="Enter message..." 
               onChange={this.handleChange}
               value={this.state.newMessageInput} />
+
             <button
               type="submit"
               className='send-button' 
@@ -144,15 +160,19 @@ class Feed extends React.Component {
               <IoSend size="20" />
             </button>
             <div className='bottom-sub-bar'>
+
+            <ImageUpload currentUser={this.props.currentUser} getUrl={this.getUrl} />
+          
             <button
               type="submit"
               className='bottom-bar-icon'>
               <BsImage size="20" />
             </button>
+
             <button
-              type="submit"
+              type="file"
               className='bottom-bar-icon'>
-              <AiOutlineFileGif size="20" />
+              <AiOutlineFileGif size="20"/>
             </button>
             <button
               type="submit"
@@ -166,22 +186,25 @@ class Feed extends React.Component {
             </button>
             </div>
           </div>
-        </form>
+          <div id="bottom"></div>        
       </div>
+      
     )
   }
 
   componentDidMount() {
     if (!this.socket) this.socketConnect()
     this.getRoomMessages()
+    const element = document.getElementById('bottom')
+    element.scrollTop = element.scrollHeight
   }
-
+  
   componentDidUpdate(prevProps) {
     if (this.props.currentRoom != prevProps.currentRoom) {
       console.log(`leaving room: ${prevProps.currentRoom}`)
       console.log(`joining room: ${this.props.currentRoom}`)
       this.socket.emit('joinNewRoom', this.props.currentRoom)
-      this.getRoomMessages()
+      this.getRoomMessages()  
     }
 
     if (!equal(this.props.currentUser, prevProps.currentUser)) {
