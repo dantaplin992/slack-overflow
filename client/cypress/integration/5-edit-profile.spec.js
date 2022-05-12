@@ -6,7 +6,7 @@ describe("Edit profile", () => {
     it("allows a user to edit their profile", () => {
 
         //logs in
-        cy.get('input[name="email"]').type("mrtesty@test.com")
+        cy.get('input[name="email"]').type("homer@test.com")
         cy.get('input[name="password"]').type("password")
         cy.get('input[type="submit"]').click()
         cy.contains("General")
@@ -47,18 +47,18 @@ describe("Edit profile", () => {
         cy.contains("Display Name")
         cy.contains("Icon Url")
 
-        cy.get('input[name="firstName"]').clear().type("Testy")
-        cy.get('input[name="lastName"]').clear().type("Teston")
-        cy.get('input[name="email"]').clear().type("mrtesty@test.com")
+        cy.get('input[name="firstName"]').clear().type("Homer")
+        cy.get('input[name="lastName"]').clear().type("Simpson")
+        cy.get('input[name="email"]').clear().type("homer@test.com")
         cy.get('input[name="password"]').type("password")
         cy.get('input[name="confirmPassword"]').type("password")
-        cy.get('input[name="displayName"]').clear().type("Mr T")
-        cy.get('input[name="icon"]').clear().type("https://randomuser.me/api/portraits/lego/6.jpg")
+        cy.get('input[name="displayName"]').clear().type("Homer")
+        cy.get('input[name="icon"]').clear().type("https://images.immediate.co.uk/production/volatile/sites/3/2018/08/Simpsons_SO28_Gallery_11-fb0b632.jpg?quality=90&webp=true&resize=750,500")
         cy.get('input[type="submit"]').click()
 
         //sends new message to confirm changes
-        cy.get('input[type="text"]').type("Back to Mr T")
+        cy.get('input[type="text"]').type("Doh!")
         cy.get("#submit-message").click()
-        cy.contains("Back to Mr T")
+        cy.contains("Doh!")
     })
 })

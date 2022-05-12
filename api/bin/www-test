@@ -1,0 +1,29 @@
+const app = require('../server.js')
+const http = require('http')
+const server = http.createServer(app)
+var mongoose = require('mongoose') 
+
+const io = require('socket.io')(server, { cors: { origin: "*" } })
+const chat = require('../public/scripts/socketConnection.js')
+
+server.listen(5000)
+server.on("listening", () => {
+  console.log("Listening on Port 5000")
+});
+
+chat(io)
+
+/**
+ * Connect to MongoDB
+ **/
+
+ var mongoDbUrl = process.env.MONGODB_URL || "mongodb://127.0.0.1/slack-overflow-test";
+ mongoose.connect(mongoDbUrl, {
+   useNewUrlParser: true,
+   useUnifiedTopology: true,
+ }).then(() => console.log("Connected to MongoDB"))
+ .catch(err => console.error('Could not connect to MongoDB', err))
+ 
+ var db = mongoose.connection;
+ db.on("error", console.error.bind(console, "MongoDB connection error:"));
+ 
