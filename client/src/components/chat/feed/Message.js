@@ -79,7 +79,7 @@ class Message extends React.Component {
     for (let i in uniqueEmojis) {
       let elementClass = uniqueEmojis[i] === myReaction ? "reaction-icon-active" : "reaction-icon"
       let emojiDisplayNumber = uniqueEmojiCount[i] > 1 ? uniqueEmojiCount[i] : ''
-      elements.push(<span className={elementClass} key={i}><span>{uniqueEmojis[i]}</span><span className= "font-bold text-gray-900">{emojiDisplayNumber}</span></span>)
+      elements.push(<span className={elementClass} key={i}><span>{uniqueEmojis[i]}</span><span className= "font-bold text-gray-700">{emojiDisplayNumber}</span></span>)
     }
     return elements
   }
