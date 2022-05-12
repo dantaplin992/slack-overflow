@@ -1,5 +1,5 @@
 export function emailExists(email) {
-  fetch(`http://localhost:5000/users/email/check`, {
+  fetch(`http://10.102.14.106:5000/users/email/check`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
